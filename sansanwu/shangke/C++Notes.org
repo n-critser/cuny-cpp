@@ -1,0 +1,6 @@
+#+TITLE: C++Notes.org
+#+AUTHOR: n-critser
+
+
+http://en.wikipedia.org/wiki/Hash_table
+http://www-cs-faculty.stanford.edu/~eroberts/courses/cs106b/chapters/12-implementing-maps.pdf

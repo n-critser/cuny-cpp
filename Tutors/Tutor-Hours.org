@@ -1,0 +1,9 @@
+#+TITLE: Tutor-Hours.org
+#+AUTHOR: n-critser
+#+DATE: <2014-02-14 Fri>
+#+STARTUP: showall
+
+
+[2014-02-11]: start 10am - stop 2pm
+<2014-02-14 Fri> : start 10am - stop 2pm
+<2014-02-18 Tue> : start 10am - stop 2pm

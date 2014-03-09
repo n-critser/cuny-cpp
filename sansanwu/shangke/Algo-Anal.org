@@ -1,0 +1,52 @@
+#+TITLE: algo-anal.org
+#+AUTHOR: n-critser
+#+DATE: <2014-02-24 Mon>
+
+
+* Running Time Rules
+-from Data-Structures-and-algorithm-analaysis-in-c++
+** For loops 
+A for loops run time consists of :
+(the statements inside the for loop + tests) * iterations
+
+** Nested Loops
+work inside out---:
+(The total run time of the statements) * (loopN1 * loopN2 *...)
+
+example: 
+#+ SRC, c++
+       for ( i = 0; i < n; i++)        // i = {0,1,..n}
+           for( j = 0; j < n; j++)     // j = {0,1,..n}
+                 k++;                  
+// k is executed O(1)* n*n = O(n^2)
+#+ ENDSRC
+
+** Consecutive statements
+max ( O(n), O(n^2), ...)  
+Biggest one wins. 
+
+** If/Else
+if ( test )
+     statement1
+else
+     statement2
+
+Running time of an if/else is never more than the most
+exensive {statement1,statement2}
+
+** Recursion
+Work from the inside out
+
+#+ SRC
+long fib( int n){
+    if ( n <= 1)    // O(1) 
+       return 1;
+    else
+       return fib( n-1 ) + fib( n-2 ); // O(1) + function calls
+#+ ENDSRC
+
+T(N) = fib(n)  T(0) = T(1) = 1             N = 0,1
+               T(n) = T(n-1) + T(n-2) +2   N > 2
+
+fib(N) >= (3/2)^N  ---> 
+           

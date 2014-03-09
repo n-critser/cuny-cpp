@@ -1,0 +1,20 @@
+
+
+http://stackoverflow.com/questions/99132/how-to-check-if-a-directory-exists-in-a-makefile
+* checking file existance
+** one 
+OBJDIR := objdir
+OBJS := $(addprefix $(OBJDIR)/,foo.o bar.o baz.o)
+
+$(OBJDIR)/%.o : %.c
+    $(COMPILE.c) $(OUTPUT_OPTION) $<
+
+all: $(OBJS)
+
+$(OBJS): | $(OBJDIR)
+
+$(OBJDIR):
+    mkdir -p $(OBJDIR)
+
+** two
+test -d $(OBJDIR) || mkdir $(OBJDIR)

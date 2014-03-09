@@ -1,0 +1,8 @@
+ape 11.0
+lion 55.0
+human 9.0
+elephant 76.0
+monkey 14.0
+tiger 50.0
+bluejay       120.0
+eagle 111.0

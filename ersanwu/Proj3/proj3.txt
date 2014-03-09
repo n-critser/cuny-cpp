@@ -1,0 +1,115 @@
+**************************
+DESIGN PATTERN TO FOLLOW:  MVC: MODEL VIEW CONTROLLER
+******************************************************
+Model :	    computers version of the data
+Controller: the interface between user and model
+View:  	    the output "VIEWED" by the user
+*******************************************************
+
+EXAMPLE PROGRAM CALL : arg[0]:program, arg[1]:dataFile , arg[2]:arraySize
+$ contact_list addresses.txt 10  (arg[2] is optional)
+*******************
+if arg[2]:  then create an array size(arg[2])
+else : 	    create a ptr based list 
+
+*******************
+if1 arg[1] exists: then try to open
+if2 arg[1] is open: then go to INTERACTIVE MODE...
+else2 (error something went wrong in the file open)
+else1: ask ( switch case:1 close  case:2 open a valid file)
+
+
+FORMAT FOR PROJ 3 DATA
+str    , str	 , int[10]? vector ,   str
+Bjarne,Stroustrup,9794580722,bs@cs.tamu.edu
+NO WHITE SPACE BETWEEN 
+
+Interactive Mode: specs
+1: Print the entire contact list alphabetically
+2: Insert a new contact after prompting the user for contact information:
+3: Delete an existing contact after get user input: last name of the contact
+4: Find and display a record given any field
+5: Save the current state of the contact list to the file **contactList
+6: Create a backup for this file named “contactList.bkp” w/clobber in pwd
+
+
+*********************************
+Tests:
+
+1. With& w/out arg[2] :
+   create a file with valid data and test flow into INTERACTIVE MODE
+2. With& w/out arg[2] :
+   create a file with invalid data and try to use it
+3. With& w/out arg[2] :
+   try to run with without a file name (test arg[1] type)
+4. With& w/out arg[2] :
+   use valid data file to do illegal actions on data
+   ie: remove by first name,
+       add w/out enough info,
+       enter invalid email,
+       enter invalid phone #,
+       ...
+5. With& w/out arg[2] :
+**************************************************
+CLASS LIST:
+Class ContactViewer:      reads a valid contactList file an does all the seeing
+Class ContactController:  acts on a valid contactList (file)
+Class ABCList 
+Class LinkedList	  ptr list
+Class ABList		  array list
+Class Contact:		  specifies a valid contact with all its info
+Class ABCList(abstract)	  abstract superclass for all lists
+Class ContactList: 		  The list of Contacts can be accessed by the ContactController and ContactViewer
+
+
+FUNCTION LIST:
+
+int main( argc, argv[]){
+    arrSize=0;
+     logger:( collect all args, userInput, and exceptions)
+     if (argv[2] then put into arrSize)
+     validFile(argv[1])
+     LIST<contacts> cunts= fileToList(File &filename, arrSize);
+     interactive(cunts);
+}
+
+bool validFile(File &filename){
+     if filename is valid return true;
+     else false
+}
+
+
+LIST<contacts> fileToList(File &filename, int size){
+    ( what happens if fileName is empty)
+    if ( size<=0 ) then its a ptrLIst, else ABList
+	LIST<contacts> fileNameList;
+	
+    try {
+    	check for file format by adding filename's stuff to
+	      fileNameList;
+	return a valid LIST;	
+    throw ( an exception for
+       invalid file input!
+    return a fileNameLIST ;
+}
+
+void interactive(LIst &contList){
+     int stay = 1;
+     while ( stay){
+     	 cout << "what the hell do you want to do"
+         cin>> stay
+     	 switch (stay){
+     	 case: 0 leave
+     	 case: 1 add()
+     	 case: 2 delete()
+     	 case: 3 some other shit()...
+     	 default 5 ( ask for a definite answer)
+     	 keep getting input from user
+	 and putting it in filename
+     }
+     create a backup and save;
+     exit to main (exit program)
+}
+
+void add(List 
+     

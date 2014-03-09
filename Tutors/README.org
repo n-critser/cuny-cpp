@@ -1,0 +1,62 @@
+Author: n-critser
+Date:   01-14-2014
+
+<h1>Some Tutoring Information for C++  </h1>
+
+This is meant to be a useful smattering of information
+for the basic levels of learning C++.  It's not meant to
+be an exhaustive study and it is all information that can be
+validated by an internet search for any given topic.
+
+That said, I hope this helps inform those who are currently
+attempting to learn C++, particularly at CUNY Hunter computer
+science students.
+
+Basic Layout:
+
+135CSCI:
+	Topics:
+		Primitive Types,
+		Arrays,
+		Control Structures,
+		Classes
+		Recursion,
+		Search,...
+
+235CSCI:
+	Topics:
+		Recursion,
+		Linked Lists,
+		Stacks,
+		Queues,
+		General Trees,
+		Binary Trees,
+		Binary Search Trees,
+		Pointers,
+		Templates,
+		Iterators,
+		Big O-notation, 
+
+335CSCI:
+	Topics:
+		Hash Maps,
+		AVL Trees,
+		Recursion,
+		Priority Queues,
+		
+
+Noob:
+	Topics:
+		What's a C++,
+		Links for help,
+		Your system,
+		Who to Ask?
+
+Emacs:
+	Topics:
+		Starting Emacs,
+		Writing a program,
+		Compiling a program (M-x compile),
+		Debugging a program (gdb),
+		.emacs - Making it Pretty,
+		Org.Mode/.emacs - Making it useful...
