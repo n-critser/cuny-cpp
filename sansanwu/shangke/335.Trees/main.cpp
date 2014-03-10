@@ -16,7 +16,7 @@
 /* me   */
 #include "Logger.h"
 #include "BSTree.h"
-
+#include "AvlTree.h"
 /*
  * ********************************
  * usage:  write_Log("string");

@@ -199,9 +199,15 @@ void BSTree<Comp>::printTree(std::string &str, BinaryNode<Comp>*t) const{
 
 /*PUBLIC WRAPPER METHODS  */
 
+/*find is redundant unless changed to a bool! */
 template<class Comp>
 const Comp & BSTree<Comp>::find( const Comp & x) const {
-        return elementAt( find( x,root) );
+        //return t == NULL?ITEM_NOT_FOUND: t->element;
+        if (find(x,root) == NULL)
+                return ITEM_NOT_FOUND;
+        else
+                return x;
+//        return elementAt( find( x,root) );
 }
 
 template<class Comp>

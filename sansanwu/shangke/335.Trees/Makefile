@@ -23,7 +23,7 @@ $(EXNAME) : $(OBJS)
 	@ echo "Changed files: $?"
 
 # OBJECTS
-main.o: main.cpp Logger.h BSTree.h
+main.o: main.cpp Logger.h BSTree.h AvlTree.h
 #Poly.o: Poly.cpp Poly.h Logger.h
 # END OBJECTS
 .PHONY: all clean cleanall help
