@@ -13,6 +13,13 @@
 #include <cstdlib>
 #include <cassert>
 #include <string>
+#include <time.h>
+time_t start,end;
+
+
+
+
+
 
 /*
  *int main(int argc, char* argv[]):
@@ -21,7 +28,7 @@
  */
 int main(int argc, char* argv[]){
 
-
+        time(&start);
 	std::cout << "number of args =" << argc << std::endl;
 
         std::string addressFile="";
@@ -39,6 +46,8 @@ int main(int argc, char* argv[]){
          
          
          
-
+         time(&end);
+         double dif = difftime (end,start);
+         std::cout << "elapsed time" << dif << std::endl;
          return 0;
 }
