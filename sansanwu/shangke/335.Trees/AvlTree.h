@@ -38,7 +38,12 @@ class AvlNode{
 template <class Comp>
 class AvlTree {
 public:
-        explicit AvlTree (const Comp & notFound); 
+        explicit AvlTree (const Comp & notFound): ITEM_NOT_FOUND(notFound){
+                // if (find(notFound,root) == NULL)
+                std::cout << "fix or remove NOT_FOUND "<<std::endl;
+                root = new AvlNode<Comp>(notFound,NULL,NULL);
+                //else
+        }; 
         AvlTree( const AvlTree & rhs); //Copy Constructor
         ~AvlTree();  //Destructor
 
@@ -58,8 +63,7 @@ private:
         AvlNode<Comp> * root;
         // Sentinel Value Representing an Item not present in Tree
         const Comp ITEM_NOT_FOUND;
-
-
+        
         // I don't like this function CHANGE IT **********
         const Comp & elementAt ( AvlNode<Comp> *t ) const;
         // dont' use this !!!!
@@ -85,7 +89,105 @@ private:
         void doubleWithRightChild( AvlNode<Comp> *& k1 ) const;
 };
 
+/***************PUBLIC MEMBER FUNCTIONS: START HERE*****************/ 
+//Copy Constructor
+template<class Comp>
+AvlTree<Comp>::AvlTree( const AvlTree & rhs){
 
+}
+
+//Destructor
+template<class Comp>
+AvlTree<Comp>:: ~AvlTree(){
+        makeEmpty();
+
+}
+
+/*FIXME: STUBS   */
+template<class Comp>
+const Comp & AvlTree<Comp>::findMin() const{
+        return ITEM_NOT_FOUND;
+}
+template<class Comp>
+const Comp & AvlTree<Comp>::findMax() const{
+
+}
+template<class Comp>
+const Comp & AvlTree<Comp>::find( const Comp & target) const{
+
+}
+
+template<class Comp>
+bool AvlTree<Comp>::isEmpty() const{
+        std::cout << "FIXME: I'M NOT DONE"<< std::endl;
+        return false;
+}
+
+template<class Comp>
+void AvlTree<Comp>::printTree() const{
+        printTree(root);
+}
+
+template<class Comp>
+void AvlTree<Comp>::makeEmpty(){
+        makeEmpty(root);
+}
+
+template<class Comp>
+void AvlTree<Comp>::insert( const Comp & x ){
+        std::cout << "FIXME: I'M NOT DONE"<< std::endl;
+
+}
+
+template<class Comp>
+void AvlTree<Comp>::remove( const Comp & x ){
+
+        std::cout << "FIXME: I'M NOT DONE"<< std::endl;
+}
+
+
+template<class Comp>
+const AvlTree<Comp> & AvlTree<Comp>::operator=( const AvlTree & rhs ){
+         std::cout << "FIXME: I'M NOT DONE"<< std::endl;
+         return rhs;
+}
+
+
+
+
+/***************PUBLIC MEMBER FUNCTIONS: END HERE******************
+*******************************************************************/ 
+
+
+
+
+/***************PRIVATE MEMBER FUNCTIONS: START HERE*****************/ 
+template<class Comp>
+void AvlTree<Comp>::makeEmpty( AvlNode<Comp> *&t ) const{
+        if ( t != NULL){
+                makeEmpty(t->left);
+                makeEmpty(t->right);
+                delete t;
+        }       
+        t = NULL;
+}
+
+
+template<class Comp>
+void AvlTree<Comp>::printTree(  AvlNode<Comp> *t )const {
+        std::ostringstream s;
+        std::cout << "FIXME: FIND A WAY WITHOUT STRING STREAM"<< std::endl;
+        std::cout << "elements are coming out addresses" << std::endl;
+        if( t!= NULL) {
+                printTree( t->left);
+                std::cout << (t->element) << "\t";
+                s << (t->element) << "\t";
+                printTree( t->right);
+        }
+        std::cout << s << std::endl;
+}
+
+        
 template<class Comp>
 void AvlTree<Comp>::insert( const Comp &x, AvlNode<Comp> *&t ) const{
         if (t== NULL)
@@ -214,13 +316,8 @@ void AvlTree<Comp>::doubleWithRightChild( AvlNode<Comp> *&k1 ) const {
         rotateWithRightChild( k1 );
 }
 
-
-
-
-
-
-
-
+/****************PRIVATE MEMBER FUNCTIONS: END HERE****************
+******************************************************************/
 
 
 #endif /*Thats all*/

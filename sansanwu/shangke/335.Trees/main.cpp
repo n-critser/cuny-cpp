@@ -54,11 +54,19 @@ int main(int argc, char* argv[]){
 	  }
         */
 
+        
+        const int NOT_FOUND= -999;
         int head = 3;
+        std::cout <<NOT_FOUND<<"not found"<<std::endl;
         BSTree<int> number_tree(head);
+        AvlTree<int> avl_nums(NOT_FOUND);
         std::string tree_string="";
         try {
-                /*An int tree instantiated  */              
+                /*An int tree instantiated  */
+
+                avl_nums.insert(112);
+                avl_nums.insert(212);
+                avl_nums.printTree();
                 number_tree.insert(12);
                 number_tree.insert(-6);
                 number_tree.printTree(tree_string);

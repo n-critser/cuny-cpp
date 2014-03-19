@@ -63,10 +63,10 @@ private:
 template <class Comp>
 BSTree<Comp>::BSTree( const Comp & notFound): ITEM_NOT_FOUND(-1){
         
-        if (find(notFound,root) == NULL)
+        //if (find(notFound,root) == NULL)
                 root = new BinaryNode<Comp>(notFound,NULL,NULL);
-        else
-                throw -1;
+                //else
+                //throw -1;
 }
 
 template <class Comp>
