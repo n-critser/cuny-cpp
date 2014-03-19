@@ -1,0 +1,699 @@
+<!doctype html>
+
+<html>
+<head>
+<meta charset="utf-8" />
+<title>cpp</title>
+<link rel="stylesheet" type="text/css" href="/~ray/styles/default.css" />
+<link rel="stylesheet" type="text/css" href="/~ray/styles/prettify.css" />
+<script type="text/javascript" src="/~ray/scripts/prettify.js"></script>
+</head>
+<body class="coursenotes">
+<script type="text/javascript">onload = prettyPrint;</script>
+<div class="container">
+<div class="innercontent">
+<img src='/~ray/images/cpp-logo.png ' alt='cpp-logo.png' style='float:right'><h1>Introduction to C++</h1>
+
+<div class="abstract">C++ is an interesting language &mdash; a systems language
+with a large number of features to make it useful in higher-level applications.</div>
+
+<h2>Why C++</h2>
+
+<blockquote>
+"C++ was designed so that the author and his friends
+would not have to program in Assembler, C, or various modern
+high-level languages.  Its main purpose is to make writing
+good programs easier and more pleasant for the individual
+programmer."  &mdash; Bjarne Stroustrup
+</blockquote>
+
+<h2>Overview</h2>
+
+<ul>
+<li>C++ has a core language and a standard library.
+<li>It became an international standard in 1998 (ISO 14882).  The standard has been updated in 2003, 2007, and
+    <a href="http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=50372">2011</a>.
+<li>It is pretty much a superset of C.
+<li>It is famous for making good programs difficult to write and being unpleasant to code in, though you
+    tend to hear this complaint much less these days, especially now that we have C++ 11.
+<li>C++ was created by Bjarne Stroustrup who has authored his own web page about the language at
+    <a href="http://www.research.att.com/~bs/C++.html">http://www.research.att.com/~bs/C++.html</a>.
+</ul>
+
+<h2>Hello, World</h2>
+
+<div class='filename'><span>hello.cpp</span></div><pre class='prettyprint'>#include &lt;iostream>
+
+int main() {
+  std::cout &lt;&lt; "Hello, World\n";
+}
+</pre>
+<p>To compile this, just enter</p>
+<pre class="console">
+g++ hello.cpp
+</pre>
+<p>This produces <code>a.exe</code> on Windows systems and <code>a.out</code>
+on most other systems.  While developing small programs and running through your code
+and run cycle, it's convenient to write</p>
+<pre class="console">
+g++ hello.cpp &amp;&amp; ./a.out
+</pre>
+
+<h2>Another Example Program</h2>
+
+<P>Here is a little program that prompts you for an integer then
+displays it with roman numerals.  It illustrates the <code>using
+namespace</code> directive, which frees you from having to put
+<code>std::</code> everywhere!</P>
+
+<div class='filename'><span>roman.cpp</span></div><pre class='prettyprint'>// This is a simple commandline program which prompts the user for an integer
+// input then repsonds with the number that the program thinks was entered
+// as a roman numeral.
+
+#include &lt;iostream>
+#include &lt;string>
+#include &lt;vector>
+#include &lt;utility>
+#include &lt;stdexcept>
+
+using namespace std;
+
+string toRoman(int n) {
+  if (n &lt;= 0) throw out_of_range("No Roman equivalent");
+  
+  vector&lt;pair&lt;int, string>> mapping = {
+    {1000, "M"}, {900, "CM"}, {500, "D"}, {400, "CD"}, {100, "C"}, {90, "XC"}, 
+    {50, "L"}, {40, "XL"}, {10, "X"}, {9, "IX"}, {5, "V"}, {4, "IV"}, {1, "I"}
+  };
+
+  string numeral;
+  for (auto p: mapping) {
+    while (n >= p.first) numeral += p.second, n -= p.first;
+  }
+  return numeral;
+}
+
+int main() {
+  int n;
+  cout &lt;&lt; "Enter an integer:\n";
+  cin >> n;
+  try {
+    cout &lt;&lt; n &lt;&lt; " is " &lt;&lt; toRoman(n) &lt;&lt; '\n';
+  } catch (out_of_range e) {
+    cout &lt;&lt; "Can't process " &lt;&lt; n &lt;&lt; ": " &lt;&lt; e.what() &lt;&lt; "\n";
+    return -1;
+  }
+}
+</pre>
+<p>This program uses C++ 11 features, so there's a good chance you are going to have to tell that to
+your compiler, since many C++ compilers today assume an older version of C++ by default.  This is needed
+on my Mac:
+<pre class="console">
+g++ -std=c++11 -stdlib=libc++ roman.cpp &amp;&amp; ./a.out
+</pre>
+
+<h2>More Programming Examples</h2>
+
+<p>Here is a trivial application for finding prime numbers.</p>
+
+<div class='filename'><span>primes.cpp</span></div><pre class='prettyprint'>// This program displays all the prime numbers up to and including 1000,
+// using the famous algorithm of Erathostenes.
+
+#include &lt;iostream>
+#include &lt;iomanip>
+#include &lt;vector>
+
+using namespace std;
+
+// The sieve is an array of 1001 bool values, indexed from 0 to 1000, all
+// initialized to the value true.
+vector&lt;bool> sieve(1001, true);
+
+// Write the value false in each slot of the vector corresponding to
+// a composite number.  First, 0 and 1 are composite by definition.  Then
+// for each value starting with 2, if the value is still thought to be
+// prime, we write false in each slot corresponding to its multiples.
+void checkOffComposites(vector&lt;bool>&amp; s) {
+  s[0] = false;
+  s[1] = false;
+  for (int i = 2; i * i &lt; s.size(); i++) {
+    if (s[i]) {
+      for (int j = i + i; j &lt; s.size(); j += i) {
+        s[j] = false;
+      }
+    }
+  }
+}
+
+// Writes out all the values which correspond to positions in a vector
+// containing the value true.  Each value is written to standard output in a
+// field of 8 characters.
+void displayTrueIndices(const vector&lt;bool>&amp; s) {
+  for (int i = 0; i &lt; s.size(); i++) {
+    if (s[i]) {
+      cout &lt;&lt; setw(8) &lt;&lt; i;
+    }
+  }
+  cout &lt;&lt; '\n';
+}
+
+// Generates and displays primes.
+int main() {
+  checkOffComposites(sieve);
+  displayTrueIndices(sieve);
+}
+</pre>
+<P>Here is an illustration of the <code>map</code> class
+from the Standard Library.</P>
+
+<div class='filename'><span>colors.cpp</span></div><pre class='prettyprint'>// This program asks the user how to say a particular primary color in Spanish
+// then checks the user's input to see if it is correct.
+
+#include &lt;iostream>
+#include &lt;string>
+#include &lt;map>
+
+using namespace std;
+
+// We need a dictionary to store the word mappings.  The English word will
+// be the key and the Spanish word will be the value.
+map&lt;string, string> dictionary;
+
+// Loads the dictionary with a small number of color names.
+void initializeDictionary() {
+  dictionary["blue"] = "azul";
+  dictionary["red"] = "rojo";
+  dictionary["green"] = "verde";
+}
+
+// Returns the lower case version of a given string.
+string toLowerCase(string s) {
+  string result;
+  for (char c: s) {
+    result += tolower(c);
+  }
+  return result;
+}
+
+// Asks the question and writes whether the answer was correct or not.
+void testUser(string englishWord) {
+  string answer;
+  cout &lt;&lt; "How do you say " &lt;&lt; englishWord &lt;&lt; " in Spanish?\n";
+  cin >> answer;
+  cout &lt;&lt; "\"" &lt;&lt; answer &lt;&lt; "\" is ";
+  if (toLowerCase(answer) == dictionary[englishWord]) {
+    cout &lt;&lt; "correct\n";
+  } else {
+    cout &lt;&lt; "is wrong; it's " &lt;&lt; dictionary[englishWord] &lt;&lt; "\n";
+  }
+}
+
+// Asks a few questions.
+int main() {
+  initializeDictionary();
+  for (pair&lt;string,string> p: dictionary) {
+    testUser(p.first);
+  }
+}
+</pre>
+<P>Here is an example of the use of files and streams and
+command line arguments.</P>
+
+<div class='filename'><span>average.cpp</span></div><pre class='prettyprint'>// This program displays the average of a bunch of floating point numbers.
+// If no commandline arguments are given, it prompts the user for a file
+// name and averages the floats from that file.  If exactly one commandline
+// argument is given, it takes the argument to be a file name and averages
+// the floats in that file.  If more than one command line argument is
+// given, it assumes they are all floats and displays the average of them.
+//
+// Files of floats must contain ONLY floats (and whitespace), if any other
+// character appears the program will fail with an error message.  When
+// averaging command line arguments, each argument must be a legal floating
+// point number without trailing whitespace.
+//
+// The program returns 0 on success, and -1 on failure.
+
+#include &lt;fstream>
+#include &lt;iostream>
+#include &lt;string>
+#include &lt;sstream>
+
+using namespace std;
+
+// Returns the average of all the floats in the file named by filename. Assumes
+// the file contains ONLY floats (and whitespace). If it finds any other
+// characters it throws an exception.
+float averageFromFile(string filename) {
+
+  // Open the file if you can. If you can't, throw a string stating that
+  // the file that could not be opened.
+  ifstream file;
+  file.open(filename.c_str());
+  if (!file) {
+    throw string("File '" + filename + "' not found");
+  }
+
+  // Accumulate the sum and count the values throughout the file.
+  // Immediately close the file and throw if any problems are found.
+  float sum = 0.0;
+  int numberOfValues = 0;
+  float value;
+  while (true) {
+    file >> value;                      // get the next float value
+    if (file.bad()) {                   // always check for trashed files
+      file.close();
+      throw string("Corrupted file");
+    }
+    if (file.fail()) {                  // couldn't read a float
+      if (file.eof()) {                 // if it's because you're at eof
+        break;                          // ... that's actually fine
+      } else {                          // otherwise
+        file.close();                   // ... you found junk
+        throw string("Garbage in file");
+      }
+    }
+    sum += value;
+    numberOfValues++;
+  }
+
+  // Clean up and return the answer if you can compute it, otherwise throw.
+  file.close();
+  if (numberOfValues == 0) {
+    throw string("Nothing to average");
+  }
+  return sum / numberOfValues;
+}
+
+// Computes the average of the C-strings in positions 1 .. argc-1 in the array
+// argv interpreted as floats.  Note we cannot use atof because that pathetic
+// operation returns 0.0 if a particular C-string is an illegal float.  So how
+// could we tell the difference between a valid string like "0.0" and an
+// illegal one without doing the conversion ourselves?
+float averageOfCommandLineArguments(int argc, char** argv) {
+  float sum = 0.0;
+  for (int i = 1; i &lt; argc; i++) {
+    istringstream argument(argv[i]);
+    float value;
+    argument >> value;
+
+    // Ensure it is a legal float without trailing characters.
+    if (argument.bad() || argument.fail() || !argument.eof()) {
+      throw string("Non-float commandline argument ") + argv[i];
+    }
+    sum += value;
+  }
+  return sum / (argc - 1);
+}
+
+// The main function interprets the command line, defers to one of the helper
+// routines to compute the average, then displays either the average or any
+// error messages that were thrown.
+int main(int argc, char** argv) {
+  float average;
+  try {
+    if (argc == 1) {
+      string filename;
+      cout &lt;&lt; "What file do you want to average the values in? ";
+      cin >> filename;
+      average = averageFromFile(filename);
+    } else if (argc == 2) {
+      average = averageFromFile(argv[1]);
+    } else {
+      average = averageOfCommandLineArguments(argc, argv);
+    }
+    cout &lt;&lt; "The average is " &lt;&lt; average &lt;&lt; '\n';
+  } catch (string s) {
+    cout &lt;&lt; "Error: " &lt;&lt; s &lt;&lt; "\n";
+    return -1;
+  }
+}
+</pre>
+<h2>C++ Program Structure</h2>
+
+<p>Good to know:</p>
+<ul>
+<li>A C++ program resides in a set of files.
+<li>Each file is a sequence of top-level declarations which can be
+    (1) type declarations, (2) object declarations, (3) function
+    declarations, (4) namespace declarations, or (5) directives.
+<li>Entities need to be declared before they are used.  That's
+    why the <code>#include</code> directive is so important.
+<li>When compiling a program made up of several files, be careful
+    that you don't link in old compiled code.  Use a program
+    development environment that manages your project automatically.
+</ul>
+
+<h2>Declarations and Definitions</h2>
+
+<p>A <em>declaration</em> introduces a name into a program.
+A declaration can be definitional or non-definitional.  A definition
+actually creates a thing.  There are only five kinds of
+non-definitional declarations:</p>
+<table class="centered">
+<tr><th>Declaration</th><th>Example</th></tr>
+<tr><td>Incomplete Class</td><td><code>class Dog;</code></td></tr>
+<tr><td>External Variable</td><td><code>extern int x;</code></td></tr>
+<tr><td>Function Prototype</td><td><code>double mag(Vector v);</code></td></tr>
+<tr><td>Typedef</td><td><code>typedef struct {double x; double y;} point;</code></td></tr>
+<tr><td>Static Data Member</td><td><code>class C {static int x;};</code></td></tr>
+</table>
+
+<p>Every top level name must have exactly one definition &mdash;
+so you can't duplicate a global variable definition, and you
+can't declare something extern in one file and forget to supply
+it in another file when the program is linked.</p>
+
+<p>Identifiers have:</p>
+<ul>
+  <li>Scope &mdash; block, function, prototype, file, class</li>
+  <li>Extent &mdash; static, auto, dynamic</li>
+  <li>Linkage &mdash; external, internal, none</li>
+  <li>Storage class</li>
+  <li>Type</li>
+</ul>
+
+<h2>Types</h2>
+
+<table class="centered">
+<tr>
+  <td valign=top>Built-in:</td>
+  <td><code>bool<br>
+      char, unsigned char, signed char, wchar_t,<br>
+      short int, signed short int, unsigned short int,<br>
+      int, signed int, unsigned int,<br>
+      long int, signed long int, unsinged long int,<br>
+      float, double, long double</code>
+  </td>
+</tr>
+<tr>
+  <td valign=top>Pseudo type:</td>
+  <td><code>void</code></td>
+</tr>
+<tr>
+  <td valign=top>Type formers:</td>
+  <td><code>enum<br>
+      *  (pointer)<br>
+      [ ] (array)<br>
+      &amp;  (reference - not really a new type)<br>
+      ( ) (function)<br>
+      union<br>
+      struct, class</code>
+  </td>
+</tr>
+</table>
+
+<p>Here is an example of a program that uses most of the types</p>
+
+<div class='filename'><span>typedemo.cpp</span></div><pre class='prettyprint'>// Examples of the built-in types of C++ and how to define new ones.
+
+#include &lt;iostream>
+#include &lt;string>
+#include &lt;cmath>
+#include &lt;cassert>
+using namespace std;
+
+// For most applications the only built-in types you normally use are
+// bool, char, int, and double.  The signed and unsigned versions of char
+// and int are really only used in low-level code; float is pretty much
+// useless; long double is used in high-precision scientific applications.
+// wchar_t probably should be used more often than it is.
+void builtinTypeDemo() {
+  bool old = true;
+  bool young = (1 == 2) || false;
+
+  char c = '%';
+  char d('#');                        // alternate initialization syntax
+
+  int x;                              // shows initial values are optional
+  int y = 50 + int(c);                // shows a type conversion
+
+  double z = 353.13411;
+
+  if (old &amp;&amp; !young) {
+    cout &lt;&lt; d &lt;&lt; double(y) + z &lt;&lt; '\n';
+  }
+}
+
+// This function illustrates the simplest uses of pointers.
+void simplePointerDemo() {
+  int x = 10;
+  int* p;
+
+  p = &amp;x;                             // now p "points to" x
+  *p = 7;                             // this changes x
+  assert(x == 7);
+
+  p = nullptr;                        // using *p now will probably crash!
+
+  p = new int;                        // allocate memory at run time
+  *p = 12;
+  int* q = p;                         // p and q point to same place
+  *q = 10;
+  assert(p == q &amp;&amp; *p == 10);
+
+  q = new int(20);
+  assert(p != q &amp;&amp; *q == 20);
+  *q = 10;
+  assert(p != q &amp;&amp; *p == *q);
+
+  delete p;
+  delete q;
+}
+
+// This function illustrates references.  When you make a reference to an
+// object you can manipulate the object through the reference.  In fact,
+// it is like having more than one name for the object.
+void simpleReferenceDemo() {
+  int x;
+  int&amp; y = x;
+  y = 100;
+  assert(x == 100);
+}
+
+// Here is an illustration of how pointers and references affect the ways
+// arguments are related to their parameters.
+void parameterDemo1(int a, int* b, int&amp; c) {
+  a = 101;
+  *b = 102;
+  c = 103;
+}
+
+void callDemo1() {
+  int x = 1, y = 2, z = 3;
+  parameterDemo1(x, &amp;y, z);
+  assert(x == 1 &amp;&amp; y == 102 &amp;&amp; z == 103);
+}
+
+// Illustration of arrays.  WARNING: Arrays in C++ are low-level objects and
+// should only be used in low-level code, such as that which implements
+// useful data structures or which maps to the hardware.  They are tricky
+// and do not behave like the other types.  But you have to learn about them
+// because everyone uses them and you have to read other people's code,
+// and even write low-level code yourself.  IN GENERAL USE vector AND valarray 
+// FROM THE STANDARD LIBRARY INSTEAD OF THE "BUILT-IN" ARRAYS.
+int a[10];                              // an array of 10 ints
+typedef int triple[3];                  // a type declaration, NOT an object
+triple t1, t2;                          // two objects
+triple center = {0, 0, 0};              // this syntax only for initialization
+
+// Illustration of arrays as parameters.  BEWARE!  Something tricky occurs
+// in C++ !!
+void move(triple t, int dx, int dy, int dz) {
+  t[0] += dx;
+  t[1] += dy;
+  t[2] += dz;
+}
+
+void callDemo2() {
+  triple c = {1, 2, 3};
+  move(c, 100, 100, 100);
+  assert(c[0] == 101 &amp;&amp; c[1] == 102 &amp;&amp; c[2] == 103);
+  // Why did c change even though the first parameter to move was not a
+  // reference parameter?  Because the array name is actually treated
+  // as a pointer to the first element of the array!
+
+  triple d = {c[0], c[1], c[2]};
+  assert(c != d);                             // why??
+  // d = c; CANNOT BE WRITTEN IN C++! YOU CANNOT ASSIGN ARRAYS!
+
+  for (int i = 0; i &lt; 10; i++) a[i] = 0;
+  move(a, 10, 10, 10);                        // not a error!
+  move(&amp;a[7], 10, 10, 10);                    // not an error!
+  cout &lt;&lt; "[ ";
+  for (int j = 0; j &lt; 10; j++) cout &lt;&lt; a[j] &lt;&lt; ' ';
+  cout &lt;&lt; "]\n";
+}
+
+// Arrays of characters, and hence pointers to characters, are pretty common
+// in low-level code.  In regular programs, stick to the type string from
+// the standard library.  Character arrays and character points are error-prone!
+// Be very careful with them.  C++ requires discipline.
+void charArrayDemo() {
+  char s1[3] = {'d', 'o', 'g'};
+  char s2[4] = "dog";
+  assert(s2[0] == 'd' &amp;&amp; s2[2] == 'g' &amp;&amp; s2[3] == char(0));
+  const char* s3 = "aardvark";
+  assert(s3[2] == 'r');
+  s1[2] = 't';
+  s2[2] = 't';
+}
+
+// Here are some declarations of enumeration types.
+enum Direction {NORTH, SOUTH, EAST, WEST};
+enum Level {LOW, MEDIUM, URGENT};
+
+// Functions as objects.  Actually it is "pointers to functions" that we deal
+// with, but in C++ you can use the function name in for a pointer to that
+// function.
+int square(int x) {
+  return x * x;
+}
+
+typedef int fun(int);
+
+int twice(fun f, int x) {       // more readable than twice(int f(int), x)
+  return f(f(x));
+}
+
+void twiceDemo() {
+  cout &lt;&lt; twice(square, 2) &lt;&lt; '\n';
+}
+
+// Simple classes.
+const double PI = acos(-1.0);
+
+class Circle {
+private:
+  double radius;
+public:
+  Circle() {radius = 1.0;}
+  Circle(double r) {radius = r;}
+  double getRadius() {return radius;}
+  double circumference() {return 2.0 * PI * radius;}
+  double area() {return PI * radius * radius;}
+  void expand(double factor) {radius *= factor;}
+};
+
+void circleDemo() {
+  Circle c1;
+  Circle c2(5.0);
+  Circle c3(c1);
+  Circle c4 = c2;                     // initialization
+  c1 = c2;                            // assignment
+  c1.expand(3.0);
+  assert(c1.getRadius() == 15.0);
+  assert(c2.getRadius() == 5.0);
+  cout &lt;&lt; c3.area() &lt;&lt; '\n';
+}
+
+int main() {
+  builtinTypeDemo();
+  simplePointerDemo();
+  simpleReferenceDemo();
+  callDemo1();
+  callDemo2();
+  charArrayDemo();
+  twiceDemo();
+  circleDemo();
+}
+</pre>
+<h2>Statements</h2>
+
+<ul>
+  <li>; (the null statement)
+  <li>any declaration is a statement
+  <li>any expression is a statement (function calls and assignments happen
+      to be expressions)
+  <li>{ <i>statements</i> } (this is a "block" of statements)
+  <li><b>try</b> statement
+  <li><b>if</b> (can optionally have an else part)
+  <li><b>switch</b> (very messy multiway branch)
+  <li><b>while</b> (loop with termination test at the beginning)
+  <li><b>do ... while</b> (loop with termination test at the end)
+  <li><b>for</b> (loop with built-in initialization, termination test,
+      and iteration mechanism)
+  <li><b>return</b> (to return from a function)
+  <li><b>goto</b> (immediate, unconditional jump to some label)
+  <li><b>break</b> (immediate exit from innermost enclosing loop or switch)
+  <li><b>continue</b> (jump to end of innermost enclosing loop - not out of
+      the loop)
+</ul>
+
+<h2>Classes</h2>
+
+<p>C++ began life as a language called "C with Classes," so not
+surprisingly there are a variety of concepts related to classes in C++.
+Here are a few:</p>
+
+<ul>
+<li>format of the class declaration
+<li>field
+<li>method
+<li>constructor
+<li>destructor
+<li>declaring bodies inside the class vs. outside
+<li>access control private protected public friend
+<li>initializer list in constructors
+<li>copy constructor
+<li>overloading assignment
+<li>need destructor if class allocates memory
+<li>type conversion operator
+<li>making constructors explicit
+<li>const
+<li>mutable
+<li>derived classes
+<li>public vs private derivation
+<li>virtual function
+<li>pure virtual function
+<li>destructors should be virtual
+</ul>
+
+<h2>Standard Library Modules</h2>
+
+<p>There are 50 modules in the standard library:</p>
+
+<pre>
+algorithm, bitset, cassert, cctype, cerrno, cfloat, ciso646,
+climits, clocale, cmath, complex, csetjmp, csignal, cstdarg,
+cstddef, cstdio, cstdlib, cstring, ctime, cwchar, cwctype,
+deque, exception, fstream, functional, iomanip, ios, iosfwd,
+iostream, istream, iterator, limits, list, locale, map, memory,
+new, numeric, ostream, queue, set, sstream, stack, stdexcept,
+streambuf, string, typeinfo, utility, valarray, vector
+</pre>
+
+<h2>Differences from C</h2>
+
+<p>Many people learn C before C++ and write C++ like C with
+a couple enhancements.  This is very unfortunate and one of the
+biggest reasons real-world C++ programs are so poor.  Learn
+C++ first.  Properly written C++ looks completely foreign to
+C programmers. Some differences are that C++:</p>
+<ul>
+<li>has additional keywords, such as <b>class</b>, <b>friend</b>,
+    <b>virtual</b>, <b>delete</b>, ...
+<li>has additional operators: <b>new</b>, <b>delete</b>, "<code>::</code>",
+    "<code>.*</code>", and "<code>-&gt;*</code>"
+<li>has stronger typechecking
+<li><i>requires</i> prototypes for functions
+<li>allows functions and operators to be overloaded
+<li>has default parameters
+<li>has references
+<li>allows unions to be anonymous
+<li>requires that external names be defined only once
+<li>allows functions and operators to be inline
+<li>expands the role of <b>const</b>
+<li>equates <code>f()</code> with <code>f(void)</code>, whereas in C,
+    <code>f()</code> means <code>f(...)</code>
+<li>has direct support for all the common object-oriented features
+<li>allows declarations to appear anywhere within a block
+<li>treats union, struct and enum tags as type names
+</ul>
+
+<p>A great document describing the differences between C90, C99
+and C++ is <a href="http://david.tribble.com/text/cdiffs.htm">http://david.tribble.com/text/cdiffs.htm</a>.</p>
+</div>
+</div>
+<script>title = document.getElementsByTagName("h1")[0]; if (title) document.title = title.innerHTML;</script>
+</body>
+</html>

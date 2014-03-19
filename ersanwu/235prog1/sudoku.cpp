@@ -182,13 +182,13 @@ bool sudoku::makeBoard(PointT makeThis ){
 	//cout << "point row=" << makeThis.rowY << " point col= "<< makeThis.colX << " num = " << num<< endl;
 	if (endOfPuzzle(makeThis)){ return true;}
 	for (int n=1; n < 10; n++){
-	if (!testForCollision(makeThis, n)){
-		pushValue(makeThis, n);
-		if (makeBoard(nextPoint(makeThis))){
-			return true;
-		}
-		popValue(makeThis);
-	}
+                if (!testForCollision(makeThis, n)){
+                        pushValue(makeThis, n);
+                        if (makeBoard(nextPoint(makeThis))){
+                                return true;
+                        }
+                        popValue(makeThis);
+                }
 	}
 	return false;
 }
