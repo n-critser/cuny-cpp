@@ -1,0 +1,24 @@
+#+TITLE: Proj2Trees: readme.org
+#+DATE:<2014-03-19 Wed>
+
+* TASKS
+** TODO I/O stream 
+** TODO File stream
+** TODO EAVLtree current Height (test)
+** TODO EAVLtree Node has a frequency variable
+** TODO number of nodes in tree
+** TODO internal path length
+** TODO Command
+*** TODO insert <word>
+*** TODO remove <word>
+*** TODO find <word>
+*** TODO display
+*** TODO report 
+reports the stats
+1. size of tree
+2. height of tree
+3. internal path length
+4. average number of nodes visited by the find command 
+so far
+*** TODO quit 
+

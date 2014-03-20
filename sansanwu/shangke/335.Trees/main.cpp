@@ -63,16 +63,18 @@ int main(int argc, char* argv[]){
         std::string tree_string="";
         try {
                 /*An int tree instantiated  */
-
-                avl_nums.insert(112);
-                avl_nums.insert(212);
+                for (long long  k = 1; k> 0; k=k<<1){
+                         avl_nums.insert(k);
+                }
                 avl_nums.printTree();
+                std::cout<<std::endl;
+                std::cout <<"Total Tree height ="<<avl_nums.treeHeight()<<std::endl;
                 number_tree.insert(12);
                 number_tree.insert(-6);
-                number_tree.printTree(tree_string);
-                std::cout << "\nSpace\n"<<std::endl;
+                //number_tree.printTree(tree_string);
+                //std::cout << "\nSpace\n"<<std::endl;
                 // number_tree.find(3);
-                std::cout<< number_tree.find(head) <<std::endl;
+                //std::cout<< number_tree.find(head) <<std::endl;
         } catch (...) {
                 log << debug::Logger::DEBUG << "\nEXCEPTION BUILDING TREE\n";
         }
