@@ -17,6 +17,7 @@
 #include "Logger.h"
 #include "BSTree.h"
 #include "AvlTree.h"
+#include "EavlTree.h"
 /*
  * ********************************
  * usage:  write_Log("string");
@@ -60,17 +61,34 @@ int main(int argc, char* argv[]){
         std::cout <<NOT_FOUND<<"not found"<<std::endl;
         BSTree<int> number_tree(head);
         AvlTree<int> avl_nums(NOT_FOUND);
+        EavlTree<std::string> eavl_strings( "NOT-FOUND");
         std::string tree_string="";
         try {
                 /*An int tree instantiated  */
                 for (long long  k = 1; k> 0; k=k<<1){
                          avl_nums.insert(k);
                 }
-                avl_nums.printTree();
+                //avl_nums.printTree();
                 std::cout<<std::endl;
                 std::cout <<"Total Tree height ="<<avl_nums.treeHeight()<<std::endl;
                 number_tree.insert(12);
                 number_tree.insert(-6);
+                std::string test2 = "test2";
+                int testFreq = 0;
+                for (int m = 0; m <20; m++){
+                        std::string one = "--";
+                        std::string next = "XX";
+                        std::string input = "start";
+                        input= input+next+one;
+                        eavl_strings.insert(input);
+                        eavl_strings.insert(next+test2);
+                        eavl_strings.find(input,testFreq);
+                        std::cout <<"test freq="<<testFreq<<std::endl;
+                        
+                }
+                std::cout<< eavl_strings.find("startXX--", testFreq);
+                std::cout<<std::endl;
+                eavl_strings.printTree();
                 //number_tree.printTree(tree_string);
                 //std::cout << "\nSpace\n"<<std::endl;
                 // number_tree.find(3);
