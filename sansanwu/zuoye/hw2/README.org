@@ -1,0 +1,26 @@
+#+TITLE: Proj2Trees: readme.org
+#+DATE:<2014-03-19 Wed>
+#+STARTUP: overview
+#+AUTHOR: N-CRITSER
+* TASKS
+** TODO I/O stream 
+** STARTED EAVLtree current Height (test)
+** TODO number of nodes in tree
+** TODO internal path length
+** TODO Command
+*** STARTED insert <word>
+*** STARTED remove <word>
+*** STARTED find <word>
+seg fault ? 
+*** TODO display
+*** TODO report 
+reports the stats
+1. size of tree
+2. height of tree
+3. internal path length
+4. average number of nodes visited by the find command 
+so far
+*** TODO quit 
+** DONE File stream
+** DONE EAVLtree Node has a frequency variable
+

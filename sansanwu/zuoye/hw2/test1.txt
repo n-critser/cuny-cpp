@@ -1,0 +1,5 @@
+insert fancy
+insert               pants
+insert		     hello-mary-lou
+find  hello
+find pants
