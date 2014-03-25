@@ -56,20 +56,21 @@ class EavlNode{
                 :element(elem), left(lt), right(rt), height(h), frequency(1){}
         friend class EavlTree<Comp>;
         
-        friend std::ostream& operator<< ( std::ostream & os, const EavlNode<Comp> & T ){
+        /*std::ostream& operator<< ( std::ostream & os, const  EavlNode &T ){
                        os << std::endl;
                        //int size = T.size;
                        os << "PRINTING EavlNode\n";
-                       os<< "node=";
-                       os<< T.element;
-                       os<< "(";
-                       os<< T.frequency;
-                       os<< ")";
+                       //os<< "node=";
+                       // os<< T.element;
+                       // os<< "(";
+                       //os<< T.frequency;
+                       //os<< ")";
                        //os << ;
                        return os;
                 
 
         }
+        */
         
 };
 
@@ -96,7 +97,7 @@ public:
         
         int nodeFrequency( const Comp & target) const;
 
-        std::ostream&   in_order( const std::ostream& os) ;
+        std::ostream&   in_order(  std::ostream& os) ;
         
         void makeEmpty();
         void insert( const Comp & x );
@@ -104,8 +105,11 @@ public:
         int treeHeight() const;  /*RETURNS OVERALL HEIGHT OF TREE*/
         const EavlTree & operator = ( const EavlTree & rhs );
         // Function to output class to ostream
-        friend
-        std::ostream& operator<< <> (const  std::ostream& os, const EavlTree<Comp> & T );
+        
+        //std::ostream& operator<< (  std::ostream& os, const EavlTree<Comp> & T );
+
+        // FIXME:  gET THIS WORKING OSTREAM << OPERATOR FOR TEMPLATE 
+        friend std::ostream& operator<< <> (  std::ostream& os , const EavlTree<Comp> & T);
 	  
 
 private:
@@ -148,20 +152,21 @@ private:
 
 /* Implementation of the overloaded << friend of EavlTree*/
 template<class Comp>
-std::ostream& operator<<( std::ostream& os,  EavlTree<Comp>& T ){
+std::ostream& operator<<( std::ostream& os, const EavlTree<Comp> &T){
         os << std::endl;
   //int size = T.size;
   os << "PRINTING EavlTree\n";
   // HOW TO TRAVERSE THE TREE AND OUTPUT THE STREAM
   //EavlNode<Comp> * start = T.root;
   
+  //
   os << T.in_order(os);
     
   return os;
 }
 
 template<class Comp>
-std::ostream&  EavlTree<Comp>:: in_order(const std::ostream& os) {
+std::ostream&  EavlTree<Comp>:: in_order( std::ostream& os) {
 
        return  in_order( os,root);
 }
