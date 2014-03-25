@@ -24,6 +24,14 @@ template <class Comp>
 class EavlTree;
 
 template <class Comp>
+class EavlNode;
+template <class Comp>
+std::ostream& operator<<( std::ostream& os, const EavlTree<Comp> & T );
+
+template <class Comp>
+std::ostream& operator<<( std::ostream & os, const EavlNode<Comp> & T );
+
+template <class Comp>
 class EavlNode{
         Comp element;
         EavlNode *left;
@@ -32,10 +40,37 @@ class EavlNode{
         int height;
         int frequency;
 
+        const std::string toString() const{
+                std::string output="";
+                if (!NULL){
+                        output+= "node=";
+                        output+= element;
+                        output+= "(";
+                        output+= frequency;
+                        output+= ")";
+                }
+                return output;
+        }
         /*EavlNode Constructor Default Node height = 0  */
         EavlNode ( const Comp & elem, EavlNode *lt, EavlNode *rt, int h=0)
                 :element(elem), left(lt), right(rt), height(h), frequency(1){}
         friend class EavlTree<Comp>;
+        
+        friend std::ostream& operator<< ( std::ostream & os, const EavlNode<Comp> & T ){
+                       os << std::endl;
+                       //int size = T.size;
+                       os << "PRINTING EavlNode\n";
+                       os<< "node=";
+                       os<< T.element;
+                       os<< "(";
+                       os<< T.frequency;
+                       os<< ")";
+                       //os << ;
+                       return os;
+                
+
+        }
+        
 };
 
 template <class Comp>
@@ -61,12 +96,17 @@ public:
         
         int nodeFrequency( const Comp & target) const;
 
+        std::ostream&   in_order( const std::ostream& os) ;
         
         void makeEmpty();
         void insert( const Comp & x );
         void remove( const Comp & x );
         int treeHeight() const;  /*RETURNS OVERALL HEIGHT OF TREE*/
         const EavlTree & operator = ( const EavlTree & rhs );
+        // Function to output class to ostream
+        friend
+        std::ostream& operator<< <> (const  std::ostream& os, const EavlTree<Comp> & T );
+	  
 
 private:
         EavlNode<Comp> * root;
@@ -77,6 +117,8 @@ private:
         const Comp & elementAt ( EavlNode<Comp> *t ) const;
         // dont' use this !!!!
 
+
+        const std::string toString( EavlNode<Comp> *&t) const;
         void insert( const Comp & x, EavlNode<Comp> *&t) const;
         void remove( const Comp & x, EavlNode<Comp> *& t ) const ;
         
@@ -96,9 +138,35 @@ private:
         void rotateWithRightChild( EavlNode<Comp> *& k1 ) const;
         void doubleWithLeftChild( EavlNode<Comp> *& k3 ) const;
         void doubleWithRightChild( EavlNode<Comp> *& k1 ) const;
+
+        std::ostream  in_order( std::ostream& os, EavlNode<Comp> *& t);
+        
+        
 };
 
 /***************PUBLIC MEMBER FUNCTIONS: START HERE*****************/ 
+
+/* Implementation of the overloaded << friend of EavlTree*/
+template<class Comp>
+std::ostream& operator<<( std::ostream& os,  EavlTree<Comp>& T ){
+        os << std::endl;
+  //int size = T.size;
+  os << "PRINTING EavlTree\n";
+  // HOW TO TRAVERSE THE TREE AND OUTPUT THE STREAM
+  //EavlNode<Comp> * start = T.root;
+  
+  os << T.in_order(os);
+    
+  return os;
+}
+
+template<class Comp>
+std::ostream&  EavlTree<Comp>:: in_order(const std::ostream& os) {
+
+       return  in_order( os,root);
+}
+	  
+
 //Copy Constructor
 template<class Comp>
 EavlTree<Comp>::EavlTree( const EavlTree & rhs){
@@ -192,7 +260,37 @@ const EavlTree<Comp> & EavlTree<Comp>::operator=( const EavlTree & rhs ){
 
 
 
-/***************PRIVATE MEMBER FUNCTIONS: START HERE*****************/ 
+/***************PRIVATE MEMBER FUNCTIONS: START HERE*****************/
+template<class Comp>
+std::ostream  EavlTree<Comp>::in_order( std::ostream& os, EavlNode<Comp> *& t){
+
+        os << "CALLING IN_ORDER\n";
+	if (t!= NULL){
+		in_order(os, t->left);
+		os<<t->element;
+		in_order(os, t->right);
+	}        
+        return os;
+
+}
+/*        
+template<class Comp>
+const std::string EavlTree<Comp>::toString( EavlNode<Comp> *&t) const{
+        std::string output="";
+        if (t != NULL){
+                output+= "node=";
+                output+= t->element;
+                output+= "(";
+                output+= t->frequency;
+                output+= ")";
+        }
+        return output;
+                
+
+
+}
+*/
+        
 template<class Comp>
 EavlNode<Comp>* EavlTree<Comp>::find( const Comp & x, EavlNode<Comp> *t) const{
         if (t !=NULL){

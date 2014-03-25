@@ -3,6 +3,10 @@
 #+STARTUP: overview
 #+AUTHOR: N-CRITSER
 * TASKS
+** TODO Testing: Exception Handling 
+*** TODO malformed lines
+*** TODO freq of a non-existant node
+*** TODO 
 ** TODO I/O stream 
 ** STARTED EAVLtree current Height (test)
 ** TODO number of nodes in tree

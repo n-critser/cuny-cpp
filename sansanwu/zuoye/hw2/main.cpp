@@ -81,7 +81,7 @@ int main(int argc, char* argv[]){
                 // tree_string="";
         }
         try {
-                eavl_strings.printTree();
+                std::cout << eavl_strings;
                 std::cout<< eavl_strings.find("pants", testFreq);
                
         } catch (...) {
