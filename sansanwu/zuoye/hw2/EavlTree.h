@@ -56,7 +56,7 @@ class EavlNode{
                 :element(elem), left(lt), right(rt), height(h), frequency(1){}
         friend class EavlTree<Comp>;
         
-        /*std::ostream& operator<< ( std::ostream & os, const  EavlNode &T ){
+        friend std::ostream& operator<< ( std::ostream & os, const  EavlNode &T ){
                        os << std::endl;
                        //int size = T.size;
                        os << "PRINTING EavlNode\n";
@@ -70,7 +70,7 @@ class EavlNode{
                 
 
         }
-        */
+        
         
 };
 
@@ -92,7 +92,7 @@ public:
         //const Comp & find( const Comp & target) const;
         const int find( const Comp & target , int & freq) const;
         bool isEmpty() const;
-        void printTree() const;
+        void printTree(std::ostream &os) const;
 
         
         int nodeFrequency( const Comp & target) const;
@@ -108,9 +108,10 @@ public:
         
         //std::ostream& operator<< (  std::ostream& os, const EavlTree<Comp> & T );
 
-        // FIXME:  gET THIS WORKING OSTREAM << OPERATOR FOR TEMPLATE 
-        friend std::ostream& operator<< <> (  std::ostream& os , const EavlTree<Comp> & T);
-	  
+        // FIXME:  gET THIS WORKING OSTREAM << OPERATOR FOR TEMPLATE
+        template <typename X>
+        friend std::ostream& operator<< (  std::ostream& os , const EavlTree<X>& T);
+
 
 private:
         EavlNode<Comp> * root;
@@ -132,7 +133,7 @@ private:
 
         
         void makeEmpty( EavlNode<Comp> *&t ) const; /*DELETES ENTIRE TREE */
-        void printTree( EavlNode<Comp> *t ) const;  /*RECURSIVE PRINT*/
+        void printTree( std::ostream& os, EavlNode<Comp> *t ) const;  /*RECURSIVE PRINT*/
         EavlNode<Comp> * clone( EavlNode<Comp> *t ) const; /*DEEP COPY*/
         int height( EavlNode<Comp> *t ) const;      /*HEIGHT OF A NODE*/
 
@@ -151,19 +152,29 @@ private:
 /***************PUBLIC MEMBER FUNCTIONS: START HERE*****************/ 
 
 /* Implementation of the overloaded << friend of EavlTree*/
+
 template<class Comp>
-std::ostream& operator<<( std::ostream& os, const EavlTree<Comp> &T){
-        os << std::endl;
-  //int size = T.size;
-  os << "PRINTING EavlTree\n";
-  // HOW TO TRAVERSE THE TREE AND OUTPUT THE STREAM
-  //EavlNode<Comp> * start = T.root;
-  
-  //
-  os << T.in_order(os);
+std::ostream& operator<< (  std::ostream& os , const EavlTree<Comp> & T){
+
+        //EavlNode<Comp> * temp = T.root;
+                os << std::endl;
+                //int size = T.size;
+                os << "PRINTING EavlTree\n";
+                //if ( temp != NULL)
+                //      os << temp->left;
+                // HOW TO TRAVERSE THE TREE AND OUTPUT THE STREAM
+                //EavlNode<Comp> * start = T.root;
+                
+                //
+                //
+
+                T.printTree(os);
     
-  return os;
+                return os;
+
+
 }
+
 
 template<class Comp>
 std::ostream&  EavlTree<Comp>:: in_order( std::ostream& os) {
@@ -226,8 +237,8 @@ bool EavlTree<Comp>::isEmpty() const{
 }
 
 template<class Comp>
-void EavlTree<Comp>::printTree() const{
-        printTree(root);
+void EavlTree<Comp>::printTree(std::ostream & os) const{
+        printTree(os, root);
 }
 
 /*DO YOU WANT A PUBLIC MAKE EMPTY?*/
@@ -278,10 +289,10 @@ std::ostream  EavlTree<Comp>::in_order( std::ostream& os, EavlNode<Comp> *& t){
         return os;
 
 }
-/*        
+/*       
 template<class Comp>
 const std::string EavlTree<Comp>::toString( EavlNode<Comp> *&t) const{
-        std::string output="";
+        //std::stringstream  output="";
         if (t != NULL){
                 output+= "node=";
                 output+= t->element;
@@ -333,14 +344,14 @@ void EavlTree<Comp>::makeEmpty( EavlNode<Comp> *&t ) const{
 
 
 template<class Comp>
-void EavlTree<Comp>::printTree(  EavlNode<Comp> *t )const {
+void EavlTree<Comp>::printTree( std::ostream &os,  EavlNode<Comp> *t )const {
         //std::cout << "FIXME: FIND A WAY WITHOUT STRING STREAM"<< std::endl;
         
         if( t!= NULL) {
-                printTree( t->left);
-                std::cout << "T="<<(t->element) << "("<<(t->frequency)<< ")\t";
+                printTree(os,  t->left);
+                os << "T="<<(t->element) << "("<<(t->frequency)<< ")\t";
                 //s << (t->element) << "\t";
-                printTree( t->right);
+                printTree( os,t->right);
         }
         //std::cout << std::endl;
         //std::cout <<"END OF TREE"<<std::endl;
