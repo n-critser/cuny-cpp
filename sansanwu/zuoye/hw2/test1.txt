@@ -1,5 +1,47 @@
 insert fancy
+insert  thisislongerthan32charactersandshouldcauseanerrortobeoutpu
+insert                        this
+insert        tuesday
+insert        666fat
+report
+assert  4
+display
+insert             distancerunning
+insert          this again
 insert               pants
+display 
+assert 6
+report
 insert		     hello-mary-lou
+insert    what
+display
+insert   this
+insert             blackmail
+assert 9
+remove           fast            next
+blank
+insert  what
+insert what
+find what
+report 
+find blackmail
+display
+remove what
+remove                              tuesday
+insert         friday
 find  hello
 find pants
+report
+remove hello
+insert *&fancy
+insert           \\whatever
+insert      display
+display
+insert Friday
+insert Display
+display
+remove          Friday
+display
+report
+quit
+

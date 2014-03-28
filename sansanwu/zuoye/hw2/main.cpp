@@ -9,29 +9,19 @@
   Modifications  : 
  
 *******************************************************************************/
+//#define NDEBUG
 #include <iostream>
 #include <cstdlib>
 #include <cassert>
 #include <string>
 #include <fstream>
+#include <sstream>
 
 /* me   */
-#include "Logger.h"
+
 #include "EavlTree.h"
-/*
- * ********************************
- * usage:  write_Log("string");
- * 		   write_Log(convertDigit(number));
- */
 
 
-debug::Logger log("Trees", "main.debug") ;
-/* Log file  
- ***************************************************
- * usage: <log-name> << debug::Logger::DEBUG << " char* or string\n";
- * Change the type of Log 3 possible choices 
- *  {DEBUG, WARNING, INFO }  
- */
 
 /*
  *int main(int argc, char* argv[]):
@@ -39,8 +29,12 @@ debug::Logger log("Trees", "main.debug") ;
  *First round of error checking for correct program arguments.
  */
 int main(int argc, char* argv[]){
-        log << debug::Logger::DEBUG << "\nDebug-Log: Line 1!";
+        
 
+        /*REMOVE ASSERT WHEN DONE DEBUGGIN*/
+        const  int CMAX = 7;
+        std::string commands[] ={"assert","insert","remove","find","display","report","quit"};
+        
         char * argFile;
         std::ifstream inFile;
         
@@ -66,27 +60,96 @@ int main(int argc, char* argv[]){
                  std::cerr << "Valid File not found:  ** Exiting ** " << std::endl;
                  exit(1);
          }
-
-
+         EavlTree<std::string> eavl_strings( "NOT-FOUND");
+         std::string tree_string="";
+         int testFreq = 0;
+         std::string command = "";
+         std::string word = "-1";
+         std::string overflow = "-1";
 
          
-        EavlTree<std::string> eavl_strings( "NOT-FOUND");
-        std::string tree_string="";
-        int testFreq = 0;
-        while (inFile >> tree_string){
-                std::cout <<"string1="<< tree_string<<"\t";
-                inFile>>tree_string;
-                std::cout <<"string2="<<tree_string<<std::endl;
-                eavl_strings.insert(tree_string);
-                // tree_string="";
-        }
-        try {
-                std::cout << eavl_strings;
-                std::cout<< eavl_strings.find("pants", testFreq);
-               
-        } catch (...) {
-                std::cerr << "EXCEPTION MANIPULATING TREE";
-        }
-        
+         while (std::getline(inFile,tree_string) ){
+                 std::stringstream strin( tree_string);
+                 strin>> command;
+                 bool valid = false;
+                 /*COMPARE command  TO LIST OF VALID COMMAND STRINGS */
+                 for ( int i = 0 ; i < CMAX; i ++){
+                         if (command == commands[i])
+                                 valid = true;        
+                 }
+                 if (valid != true){
+                         std::cerr << "INVALID COMMAND STRING"<<std::endl;
+                         strin.clear();
+                         continue;
+                 }
+                 //switch (command[0]){
+                 if (command == "quit"){
+                         //case 'q' :{ 
+                         std::cout<<"EXIT COMMAND GIVEN------>GOODBYE"<<std::endl;
+                         break;
+                 }
+                 else if  (command == "report"){
+                         eavl_strings.report();
+                         continue;
+                 }
+                 else if (command == "display"){
+                         std::cout<< eavl_strings<<std::endl;
+                 }
+    
+                 strin >>word;
+                 if (word.length()>32){
+                         std::cerr << "MAX WORD LENGTH = 32 CHARS"<< std::endl;
+                         std::cerr<< "INVALID WORD LENGTH"<<std::endl;
+                         word = "-1";
+                         strin.clear();
+                         continue;
+                 }
+                 strin >>overflow;
+                 if ( overflow != "-1"){
+                         std::cerr << "MALFORMED INPUT LINE" << std::endl;
+                         strin.clear();
+                         overflow = "-1";
+                         word = "-1";
+                         continue;
+                 }
+                 else if ((command == "insert" ) && (word != "-1")){
+                         std::cout << "Inserting word = "<<word<<std::endl;
+                         eavl_strings.insert(word);
+                 }
+                 else if ((command == "remove" ) && (word != "-1")){
+                         //std::cout << "word = "<<word<<std::endl;
+                         eavl_strings.remove(word);
+                 }
+                 else if ((command == "find" ) && (word != "-1")){
+                         std::cout << eavl_strings.find(word,testFreq)<<std::endl;
+                 }
+                 else if ((command == "assert") && (word != "-1")){
+                         int eval = atoi(word.c_str());
+                         std::cout << "Testing size["<<eavl_strings.size()<<"] : ["<<eval<<"]"<<std::endl;
+                         assert (eavl_strings.size()== eval);                       
+                 }
+                  
+                 word = "-1";
+
+                 
+         }
+         
+         
+         
+         try {
+                 //std::cout << eavl_strings<< std::endl;
+                 // std::cout<<std::endl;
+                 // std::cout<< eavl_strings.find("skulls", testFreq)<<std::endl;
+                 // std::cout<< eavl_strings.find("pants", testFreq)<<std::endl;
+                 // std::cout<< eavl_strings.find("pants", testFreq)<<std::endl;
+                 // std::cout<< eavl_strings.find("this", testFreq)<<std::endl;
+                 // std::cout<< eavl_strings.find("hello", testFreq)<<std::endl;
+                 
+                 //eavl_strings.report();
+                 
+         } catch (...) {
+                 std::cerr << "EXCEPTION MANIPULATING TREE";
+         }
+         
          return 0;
 }

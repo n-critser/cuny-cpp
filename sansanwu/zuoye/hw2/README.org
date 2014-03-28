@@ -1,32 +1,39 @@
 #+TITLE: Proj2Trees: readme.org
 #+DATE:<2014-03-19 Wed>
-#+STARTUP: view all
+#+STARTUP: showall
 #+AUTHOR: N-CRITSER
 * TASKS
 ** TODO Testing: Exception Handling 
-*** TODO malformed lines
+*** DONE malformed lines
 *** TODO freq of a non-existant node
-*** TODO 
-** TODO I/O stream
+Node (word) that doesn't exists returns 
+** STARTED I/O stream
 *** DONE ostream << operator
 *** TODO in_order, post_order ( test for correct avl ness)
-** STARTED EAVLtree current Height (test)
-** TODO number of nodes in tree
+
+** DONE EAVLtree current Height (test)
+*** int height = height of the tree; 
+
+** DONE number of nodes in tree
+*** size = (number of nodes in tree) 
+
 ** TODO internal path length
-** TODO Command
-*** STARTED insert <word>
-*** STARTED remove <word>
-*** STARTED find <word>
+*** nodeHeight = height of each node ( sum of these is the internal path length)
+
+** STARTED Command
+*** DONE insert <word>
+*** DONE remove <word>
+*** DONE find <word>
 seg fault ? 
-*** TODO display
-*** TODO report 
+*** STARTED display
+*** STARTED report 
 reports the stats
 1. size of tree
 2. height of tree
 3. internal path length
 4. average number of nodes visited by the find command 
 so far
-*** TODO quit 
+*** DONE quit 
 ** DONE File stream
 ** DONE EAVLtree Node has a frequency variable
 
