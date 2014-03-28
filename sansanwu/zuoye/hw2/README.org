@@ -21,6 +21,7 @@ Node (word) that doesn't exists returns
 *** nodeHeight = height of each node ( sum of these is the internal path length)
 
 ** STARTED Command
+*** TODO OUTPUT DISPLAY FOR ALL COMMAND "WORD" <TAB> FREQUENCY OR NOT_FOUND
 *** DONE insert <word>
 *** DONE remove <word>
 *** DONE find <word>
