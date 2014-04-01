@@ -1,0 +1,48 @@
+insert fancy
+insert  thisislongerthan32charactersandshouldcauseanerrortobeoutput
+insert                        this
+			      insert        tuesday
+insert        666fat
+report
+find          666fat
+display
+insert             distancerunning
+insert          this again
+find   this
+\ninsert               pants
+display 
+
+
+report
+insert		     fancy-pants
+
+test
+
+insert  facist
+report
+find facist
+report
+find
+find	                       fancy-pants
+report
+display
+assert 7
+
+insert           distance=to\mars
+display
+find      facist
+report
+insert  fancy-pants
+insert  fancy-pants
+insert  fancy-pants
+insert  fancy-pants
+insert  fancy-pants
+report
+find	fancy-pants
+display
+display fancy-pants
+insert
+insert hello
+quit
+
+

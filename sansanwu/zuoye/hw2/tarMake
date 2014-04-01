@@ -4,19 +4,18 @@
 # Type make to compile all programs in this filder 
 #
 #
-
 USERNAME = ec93
-EXNAME   = trees
+EXNAME   = hwk1
 TARDIR   = $(USERNAME)_$(EXNAME)
 CPP 	 =  /usr/bin/g++
 CC  	 =  /usr/bin/gcc
 SRCS 	 = $(wildcard *.cpp)
 HEADS    = $(wildcard *.h)# Logger.h Poly.h
-OBJS 	 = main.o #$(patsubst %.cpp, %.o, $(SRCS))
+OBJS 	 = main.o Poly.o #$(patsubst %.cpp, %.o, $(SRCS))
 EXECS	 = $(EXNAME) #$(patsubst %.cpp, %,$(SRCS))
-CPPFLAGS = -Wall -Werror -g -I../include #-std=c++11 #-Werror  stronger than -Wall
+CPPFLAGS = -Wall -Werror -g -I../include #-std=c++11
 CFLAGS 	 = -Wall -g
-DEBUG    = *.debug
+
 #	@echo $(HEADS)
 
 # EXECUTABLE
@@ -25,8 +24,8 @@ $(EXNAME) : $(OBJS)
 	@ echo "Changed files: $?"
 
 # OBJECTS
-main.o: main.cpp Logger.h  EavlTree.h
-#Poly.o: Poly.cpp Poly.h Logger.h
+main.o: main.cpp Poly.h
+Poly.o: Poly.cpp Poly.h 
 # END OBJECTS
 .PHONY: all clean cleanall help
 
@@ -36,7 +35,7 @@ clean:
 	rm -f $(OBJS)
 
 cleanall:
-	rm -f $(OBJS) $(EXECS) $(DEBUG)
+	rm -f $(OBJS) $(EXECS)
 
 install: $(EXECS)
 	cp $(EXECS) /usr/local/bin #~/bin
@@ -53,12 +52,9 @@ help:
 	@echo "HEADERS: Making with headers-->  $(HEADS)"
 	@echo "Usage: make all (must have an appropriate FILE.c for this to build)"
 	@echo "Warning: you will most likely have to upload using SUPERUSER sudo command"
-	@echo "Usage: make cleanall (removes all  *.o , executables files)"
-	@echo "Usage: make tar ----- creates a directory called $(TARDIR)"
-	@echo "       and a $(TARDIR).zip file inside the directory"
+	@echo "Usage: make clean (removes all *.o  files)"
 	@echo "See README.org for complete project help"
 #********************************************************
-
 
 #*************************
 tar:

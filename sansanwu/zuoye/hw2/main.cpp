@@ -63,14 +63,17 @@ int main(int argc, char* argv[]){
          EavlTree<std::string> eavl_strings( "NOT-FOUND");
          std::string tree_string="";
          int testFreq = 0;
-         std::string command = "";
+         std::string command = "-1";
          std::string word = "-1";
          std::string overflow = "-1";
 
          
          while (std::getline(inFile,tree_string) ){
+                 command= "-1";
+                 word = "-1";
                  std::stringstream strin( tree_string);
                  strin>> command;
+                 strin >>word;
                  bool valid = false;
                  /*COMPARE command  TO LIST OF VALID COMMAND STRINGS */
                  for ( int i = 0 ; i < CMAX; i ++){
@@ -79,24 +82,28 @@ int main(int argc, char* argv[]){
                  }
                  if (valid != true){
                          std::cerr << "INVALID COMMAND STRING"<<std::endl;
+                         std::cerr << "You Entered:" << command<<std::endl;
                          strin.clear();
                          continue;
                  }
                  //switch (command[0]){
-                 if (command == "quit"){
-                         //case 'q' :{ 
-                         std::cout<<"EXIT COMMAND GIVEN------>GOODBYE"<<std::endl;
-                         break;
-                 }
-                 else if  (command == "report"){
-                         eavl_strings.report();
-                         continue;
-                 }
-                 else if (command == "display"){
-                         std::cout<< eavl_strings<<std::endl;
+                 if (command != "-1" && word == "-1"){
+                         if (command == "quit"){
+                                 //case 'q' :{ 
+                                 std::cout<<"EXIT COMMAND GIVEN------>GOODBYE"<<std::endl;
+                                 break;
+                         }
+                         else if  (command == "report"){
+                                 eavl_strings.report();
+                                 continue;
+                         }
+                         else if (command == "display"){
+                                 std::cout<< eavl_strings<<std::endl;
+                                 continue;
+                         }
                  }
     
-                 strin >>word;
+                 
                  if (word.length()>32){
                          std::cerr << "MAX WORD LENGTH = 32 CHARS"<< std::endl;
                          std::cerr<< "INVALID WORD LENGTH"<<std::endl;
@@ -112,8 +119,13 @@ int main(int argc, char* argv[]){
                          word = "-1";
                          continue;
                  }
+                 if ( word == "-1"){
+                         std::cerr << "INVALID INPUT: WORD NOT FOUND"<<std::endl;
+                        
+                 }
+                         
                  else if ((command == "insert" ) && (word != "-1")){
-                         std::cout << "Inserting word = "<<word<<std::endl;
+                         //std::cout << "Inserting word = "<<word<<std::endl;
                          eavl_strings.insert(word);
                  }
                  else if ((command == "remove" ) && (word != "-1")){

@@ -12,9 +12,13 @@ insert               pants
 display 
 assert 6
 report
-insert		     hello-mary-lou
+insert		    hello-world
 insert    what
 display
+remove                     pants
+remove  		   pants
+insert			   pants
+insert			   pants
 insert   this
 insert             blackmail
 assert 9

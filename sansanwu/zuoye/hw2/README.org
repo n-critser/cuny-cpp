@@ -6,7 +6,10 @@
 ** TODO Testing: Exception Handling 
 *** DONE malformed lines
 *** TODO freq of a non-existant node
-Node (word) that doesn't exists returns 
+Node (word) that doesn't exists returns
+*** TODO output of find and all commands
+*** TODO tree height overall and size
+ 
 ** STARTED I/O stream
 *** DONE ostream << operator
 *** TODO in_order, post_order ( test for correct avl ness)
@@ -21,7 +24,8 @@ Node (word) that doesn't exists returns
 *** nodeHeight = height of each node ( sum of these is the internal path length)
 
 ** STARTED Command
-*** TODO OUTPUT DISPLAY FOR ALL COMMAND "WORD" <TAB> FREQUENCY OR NOT_FOUND
+*** TODO internal path length
+*** STARTED OUTPUT DISPLAY FOR ALL COMMAND "WORD" <TAB> FREQUENCY OR NOT_FOUND
 *** DONE insert <word>
 *** DONE remove <word>
 *** DONE find <word>

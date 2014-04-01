@@ -279,6 +279,8 @@ template<class Comp>
 const Comp & EavlTree<Comp>::findMax() const{
 
 }
+
+/* FIXME:  MIGHT HAVE TO REWRITE TO MAKE MATCH THE PDF SPECS  */
 template<class Comp>
 int  EavlTree<Comp>::find( const Comp & target , int & freq) {
         int findCount=1;
@@ -286,13 +288,13 @@ int  EavlTree<Comp>::find( const Comp & target , int & freq) {
         std::cout << "Entered Search for ["<<target<<"]"<<std::endl;
         EavlNode<Comp> * found = find(target,root,findCount);
         if (found == NULL){
-                std::cout << "found ==NULL PUBLIC FIND"<<std::endl;
+                std::cout << target<<"\t";
                 std::cout<< ITEM_NOT_FOUND << std::endl;
                 delete found;
                 
         }
         //std::cout << " found frequency ="<<found->frequency<<std::endl;
-        std::cout<<"findCount="<<findCount<<std::endl;
+        std::cout<<target<<"("<<found->frequency<<")"<<std::endl;
         nodes_searched+=findCount;
         return findCount;
 }
@@ -466,8 +468,9 @@ void EavlTree<Comp>::insert( const Comp &x, EavlNode<Comp> *&t ) { //removed con
         /*This Node doesn't exist in the tree*/
         if (t== NULL ){
                 t = new EavlNode<Comp>( x, NULL, NULL );
-                std::cout<<"INCREMENTING SIZE"<<std::endl;
+                //std::cout<<"INCREMENTING SIZE"<<std::endl;
                 tree_size++; /*ADD ONE NODE TO SIZE  */
+                std::cout<<x<<"("<< t->frequency<<")"<<std::endl;
                 //std::cout<< "initial node_height of t="<<t->node_height<<std::endl;
         }
         /* x goes left of root  */
@@ -494,8 +497,10 @@ void EavlTree<Comp>::insert( const Comp &x, EavlNode<Comp> *&t ) { //removed con
                                 doubleWithRightChild( t );
                 }
         }
-        else
+        else  {
                t->frequency++ ; //duplicate increase frequency
+               std::cout<<x<<"("<< t->frequency<<")"<<std::endl;
+        }
         t->node_height = std::max( n_height( t->left ), n_height( t->right )) + 1;
         //std::cout<< "final height of t="<<t->node_height<<std::endl;
 }
@@ -538,7 +543,7 @@ void EavlTree<Comp>::remove( const Comp & x, EavlNode<Comp> *& t ) { //removed c
         /* Shazam delete this sucker  */
         else{
                 std::cout << "CORRECT NODE FOUND"<<std::endl;
-                std::cout <<"Frequency of ["<<t->element<<"]("<<t->frequency<<")"<<std::endl;
+                std::cout <<t->element<<"("<<t->frequency<<")"<<std::endl;
                 /*Found the word but frequency > 1 so decrease by 1  */
                 if ( t->frequency > 1){
                         
@@ -577,7 +582,7 @@ void EavlTree<Comp>::remove( const Comp & x, EavlNode<Comp> *& t ) { //removed c
 
 template<class Comp>
 void EavlTree<Comp>::rotateWithLeftChild( EavlNode<Comp> *& k2) const {
-        std::cout<<"ENTERING ROTATE WITH LEFT CHILD"<<std::endl;
+        //std::cout<<"ENTERING ROTATE WITH LEFT CHILD"<<std::endl;
         EavlNode<Comp> *k1 = k2->left;
         k2->left = k1->right;
         k1->right= k2;
@@ -588,7 +593,7 @@ void EavlTree<Comp>::rotateWithLeftChild( EavlNode<Comp> *& k2) const {
 
 template<class Comp>
 void EavlTree<Comp>::rotateWithRightChild( EavlNode<Comp> *&k1 ) const{
-        std::cout<<"ENTERING ROTATE WITH RIGHT CHILD"<<std::endl;
+        //std::cout<<"ENTERING ROTATE WITH RIGHT CHILD"<<std::endl;
         EavlNode<Comp> *k2 = k1->right;
         k1->right = k2->left;
         k2->left = k1;
@@ -601,7 +606,7 @@ void EavlTree<Comp>::rotateWithRightChild( EavlNode<Comp> *&k1 ) const{
 /*FIXME : UNDERSTAND THIS WELL   */
 template<class Comp>
 void EavlTree<Comp> ::doubleWithLeftChild( EavlNode<Comp> *& k3 ) const{
-        std::cout<<"ENTERING DOUBLE WITH LEFT CHILD"<<std::endl;
+        //std::cout<<"ENTERING DOUBLE WITH LEFT CHILD"<<std::endl;
         rotateWithRightChild( k3->left );
         rotateWithLeftChild( k3 );
 
@@ -609,7 +614,7 @@ void EavlTree<Comp> ::doubleWithLeftChild( EavlNode<Comp> *& k3 ) const{
 
 template<class Comp>
 void EavlTree<Comp>::doubleWithRightChild( EavlNode<Comp> *&k1 ) const {
-        std::cout<<"ENTERING DOUBLE WITH RIGHT CHILD"<<std::endl;
+        //std::cout<<"ENTERING DOUBLE WITH RIGHT CHILD"<<std::endl;
         rotateWithLeftChild( k1->right );
         rotateWithRightChild( k1 );
 }
