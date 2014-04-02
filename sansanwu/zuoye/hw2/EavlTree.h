@@ -98,7 +98,7 @@ public:
 
 
         void insert( const Comp & x );
-        void remove( const Comp & x );
+        int remove( const Comp & x );
         int height() const;  /*INTEGER OVERALL HEIGHT OF TREE*/
         int int_pathlength() const; /*INTEGER INTERNAL PATH LENGTH OF TREE  */
         double ave_nodevisits() const; /* DOUBLE AVE. NODES VISITED BY FIND */
@@ -124,22 +124,10 @@ public:
  
         
         const EavlTree & operator = ( const EavlTree & rhs );
-        // Function to output class to ostream
-        
-        //std::ostream& operator<< (  std::ostream& os, const EavlTree<Comp> & T );
 
         // FIXME:  gET THIS WORKING OSTREAM << OPERATOR FOR TEMPLATE
         template <typename X>
         friend std::ostream& operator<< (  std::ostream& os , const EavlTree<X>& T);
-
-
-        /* TESTING  
-        if (DEBUG == TRUE){
-                bool assert_size ( int t_size ){
-                        assert
-        }
-
-        */
 
 private:
         EavlNode<Comp> * root;
@@ -158,11 +146,11 @@ private:
 
         const std::string toString( EavlNode<Comp> *&t) const;
         void insert( const Comp & x, EavlNode<Comp> *&t) ;
-        void remove( const Comp & x, EavlNode<Comp> *& t ) ;
+        void remove( const Comp & x, EavlNode<Comp> *& t, int & freq ) ;
         
         EavlNode<Comp> *findMin( EavlNode<Comp> *t ) const;
         EavlNode<Comp> *findMax( EavlNode<Comp> *t ) const;
-        EavlNode<Comp> *find( const Comp & x, EavlNode<Comp> *t, int & counter) const;
+        int find( const Comp & x, EavlNode<Comp> *t, int & freq) const;
 
         
         void makeEmpty( EavlNode<Comp> *&t ) const; /*DELETES ENTIRE TREE */
@@ -184,6 +172,15 @@ private:
 
 /***************PUBLIC MEMBER FUNCTIONS: START HERE*****************/ 
 
+
+/* FUNCTION:
+   --------------------------------------------------------------------
+   USAGE: 
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+
+  
+ */
 /* Implementation of the overloaded << friend of EavlTree*/
 template<class Comp>
 void EavlTree<Comp>::report() {
@@ -192,15 +189,34 @@ void EavlTree<Comp>::report() {
         std::cout<< "height=" << height()<<std::endl;
         std::cout<< "Internal Path Length" << int_pathlength()<<std::endl;
         std::cout<< "Ave. Nodes hit with Find=" << ave_nodevisits()<<std::endl;
+        std::cout<<std::endl;
 
 
 }
 
+
+/* FUNCTION:
+   --------------------------------------------------------------------
+   USAGE: 
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+
+  
+ */
 template<class Comp>
 int EavlTree<Comp>::int_pathlength()const{
         return -999;
 }
 
+
+/* FUNCTION:
+   --------------------------------------------------------------------
+   USAGE: 
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+
+  
+ */
 template<class Comp>
 double EavlTree<Comp>::ave_nodevisits()const{
         double nodes = double(nodes_searched);
@@ -211,11 +227,29 @@ double EavlTree<Comp>::ave_nodevisits()const{
         
 }
 
+
+/* FUNCTION:
+   --------------------------------------------------------------------
+   USAGE: 
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+
+  
+ */
 template<class Comp>
 int EavlTree<Comp>::size() const{
         return tree_size;
 }
 
+
+/* FUNCTION:
+   --------------------------------------------------------------------
+   USAGE: 
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+
+  
+ */
 template<class Comp>
 std::ostream& operator<< (  std::ostream& os , const EavlTree<Comp> & T){
 
@@ -239,6 +273,15 @@ std::ostream& operator<< (  std::ostream& os , const EavlTree<Comp> & T){
 }
 
 
+
+/* FUNCTION:
+   --------------------------------------------------------------------
+   USAGE: 
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+
+  
+ */
 template<class Comp>
 std::ostream&  EavlTree<Comp>:: in_order( std::ostream& os) {
 
@@ -246,12 +289,30 @@ std::ostream&  EavlTree<Comp>:: in_order( std::ostream& os) {
 }
 	  
 
+
+/* FUNCTION:
+   --------------------------------------------------------------------
+   USAGE: 
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+
+  
+ */
 //Copy Constructor
 template<class Comp>
 EavlTree<Comp>::EavlTree( const EavlTree & rhs){
 
 }
 
+
+/* FUNCTION:
+   --------------------------------------------------------------------
+   USAGE: 
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+
+  
+ */
 //Destructor
 template<class Comp>
 EavlTree<Comp>:: ~EavlTree(){
@@ -259,46 +320,108 @@ EavlTree<Comp>:: ~EavlTree(){
 
 }
 
+
+/* FUNCTION:
+   --------------------------------------------------------------------
+   USAGE: 
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+
+  
+ */
 template<class Comp>
 int EavlTree<Comp>::nodeFrequency( const Comp & target) const{
         std::cout<< "FIXME: NEED TO FIND FIRST THEN OUTPUT"<<std::endl;
         return -999;
 }
 
+
+/* FUNCTION:
+   --------------------------------------------------------------------
+   USAGE: 
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+
+  
+ */
 template<class Comp>
 int EavlTree<Comp>::height() const{
         return n_height(root);
 
 }
+
+
+
+
+/* FUNCTION:
+   --------------------------------------------------------------------
+   USAGE: 
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+
+  
+ */
 /*FIXME: STUBS   */
 template<class Comp>
 const Comp & EavlTree<Comp>::findMin() const{
         return findMin(root);
 }
+
+/* FUNCTION:
+   --------------------------------------------------------------------
+   USAGE: 
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+
+  
+ */
 template<class Comp>
 const Comp & EavlTree<Comp>::findMax() const{
 
 }
 
+
+
+
+/* FUNCTION:
+   --------------------------------------------------------------------
+   USAGE: 
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+
+  
+ */
 /* FIXME:  MIGHT HAVE TO REWRITE TO MAKE MATCH THE PDF SPECS  */
 template<class Comp>
-int  EavlTree<Comp>::find( const Comp & target , int & freq) {
-        int findCount=1;
+int  EavlTree<Comp>::find( const Comp & target , int &freq ) {
+        int found=1;
+        //int freq=-1;
         total_finds++;
         std::cout << "Entered Search for ["<<target<<"]"<<std::endl;
-        EavlNode<Comp> * found = find(target,root,findCount);
-        if (found == NULL){
-                std::cout << target<<"\t";
-                std::cout<< ITEM_NOT_FOUND << std::endl;
+        found = find(target,root,freq);
+        /*if (freq == 0){
+                std::cout << target<<"\t"<<0;
+                //std::cout<< ITEM_NOT_FOUND << std::endl;
                 delete found;
                 
         }
+        */
         //std::cout << " found frequency ="<<found->frequency<<std::endl;
-        std::cout<<target<<"("<<found->frequency<<")"<<std::endl;
-        nodes_searched+=findCount;
-        return findCount;
+        std::cout<<target<<"\t"<<freq<<std::endl;
+        nodes_searched+=found;
+        return found;
 }
 
+
+
+/* FUNCTION:
+   --------------------------------------------------------------------
+   USAGE: 
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+
+  
+ */
 template<class Comp>
 bool EavlTree<Comp>::isEmpty() const{
         std::cout << "FIXME: I'M NOT DONE"<< std::endl;
@@ -307,17 +430,47 @@ bool EavlTree<Comp>::isEmpty() const{
         return false;
 }
 
+
+/* FUNCTION:
+   --------------------------------------------------------------------
+   USAGE: 
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+
+  
+ */
 template<class Comp>
 void EavlTree<Comp>::printTree(std::ostream & os) const{
         printTree(os, root);
 }
 
+
+
+
 /*DO YOU WANT A PUBLIC MAKE EMPTY?*/
+/* FUNCTION:
+   --------------------------------------------------------------------
+   USAGE: 
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+
+  
+ */
 template<class Comp>
 void EavlTree<Comp>::makeEmpty(){
         makeEmpty(root);
 }
 
+
+/* FUNCTION:
+   --------------------------------------------------------------------
+   USAGE: 
+   --------------------------------------------------------------------
+   DESCRIPTION:
+   Public wrapper for recursive insert method. 
+
+  
+ */
 template<class Comp>
 void EavlTree<Comp>::insert( const Comp & x ){
         //std::cout << "FIXME: I'M NOT DONE"<< std::endl;
@@ -325,14 +478,34 @@ void EavlTree<Comp>::insert( const Comp & x ){
 
 }
 
-template<class Comp>
-void EavlTree<Comp>::remove( const Comp & x ){
 
+/* FUNCTION:
+   --------------------------------------------------------------------
+   USAGE: remove ( x )
+   --------------------------------------------------------------------
+   DESCRIPTION:
+   Public wrapper for recursive remove method.  
+
+  
+ */
+template<class Comp>
+int EavlTree<Comp>::remove( const Comp & x ) {
+        int freq =-1;
         std::cout << "remove called on ["<<x<<"]"<< std::endl;
-        return remove (x,root);
+        remove (x,root, freq);
+        std::cout << x << "\t"<<freq <<std::endl;
+        return freq;
 }
 
 
+/* FUNCTION:
+   --------------------------------------------------------------------
+   USAGE: 
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+
+  
+ */
 template<class Comp>
 const EavlTree<Comp> & EavlTree<Comp>::operator=( const EavlTree & rhs ){
          std::cout << "FIXME: I'M NOT DONE"<< std::endl;
@@ -349,6 +522,16 @@ const EavlTree<Comp> & EavlTree<Comp>::operator=( const EavlTree & rhs ){
 
 
 /***************PRIVATE MEMBER FUNCTIONS: START HERE*****************/
+
+
+/* FUNCTION:
+   --------------------------------------------------------------------
+   USAGE: 
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+
+  
+ */
 template<class Comp>
 std::ostream  EavlTree<Comp>::in_order( std::ostream& os, EavlNode<Comp> *& t){
 
@@ -388,30 +571,54 @@ const std::string EavlTree<Comp>::toString( EavlNode<Comp> *&t) const{
    than the recursive version in the text book and class pdf.s
    http://www.uow.edu.au/~nabg/ABC/C24.pdf
 */
+
+
+
+/* FUNCTION: find
+   --------------------------------------------------------------------
+   USAGE: find( string, nodePtr, freqRef );
+   --------------------------------------------------------------------
+   DESCRIPTION:
+   Iterative find function called by public wrapper.  Returns the
+   integer number of nodes searched for x.  Also, updates the frequency
+   of using the frequency of the node holding x or 0 if x isn't in the
+   tree.
+ */
 template<class Comp>
-EavlNode<Comp>* EavlTree<Comp>::find( const Comp & x, EavlNode<Comp> *t, int & counter) const{
+int EavlTree<Comp>::find( const Comp & x, EavlNode<Comp> *t, int & freq) const{
+        int counter = 1;
         while ( t!= NULL){ 
-                if ( x == t->element)
-                        return t;
+                if ( x == t->element){
+                        freq = t->frequency;
+                        break;
+                }
                 else if( x < t->element){
                         counter++;
-                        //std::cout<< "target = "<<x<<"\t t->element="<<t->element<<std::endl;
-                        //find(x,t->left,counter);
                         t  = t->left;
                 }
                 else if ( x> t->element){
                         counter++;
-                        //find(x,t->right,counter);
                         t = t->right;
                 }
         }
-        return NULL;
+        if(t== NULL){
+                freq = 0;
+        }
+        return counter;
 }
 
-
+/* FUNCTION: findMin
+   --------------------------------------------------------------------
+   USAGE: findMin( nodePtr );
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+   Returns a pointer to the minimum element in the tree. Used in
+   removal of elements. This is an iterative function, not
+   recursive. 
+ */
 template<class Comp>
 EavlNode<Comp> * EavlTree<Comp>::findMin( EavlNode<Comp> *t) const{
-        std::cout<<"ENTERING FINDMIN METHOD"<<std::endl;
+        std::cout<<"ENTERING FINDMIN FUNCTION"<<std::endl;
         if( t!= NULL){
                 while( t->left != NULL){
                         std::cout<<t->element<<std::endl;
@@ -419,14 +626,20 @@ EavlNode<Comp> * EavlTree<Comp>::findMin( EavlNode<Comp> *t) const{
                 }
         }
         return t;
-
-
 }
 
-/*WHATS THIS FOR?   */
+
+/* FUNCTION: n_height
+   --------------------------------------------------------------------
+   USAGE: n_height( nodePtr);
+   --------------------------------------------------------------------
+   DESCRIPTION:
+   Returns the integer height of a node. Used in calculating the
+   overall height of the tree and checking for imbalance.
+ */
 template<class Comp>
 int EavlTree<Comp>::n_height( EavlNode<Comp> *t ) const{
-        //std::cout<<"ENTERING HEIGHT METHOD"<<std::endl;
+        //std::cout<<"ENTERING HEIGHT FUNCTION"<<std::endl;
         if ( t == NULL)
                 return 0;
         
@@ -434,9 +647,19 @@ int EavlTree<Comp>::n_height( EavlNode<Comp> *t ) const{
         return t->node_height;
 }
 
+
+/* FUNCTION: makeEmpty
+   --------------------------------------------------------------------
+   USAGE: makeEmpty(nodePtr);
+   --------------------------------------------------------------------
+   DESCRIPTION:
+   Called by wrapper function and by destructor.
+   Empties the tree of elements and sets all pointers to NULL by
+   recursive calls. 
+ */
 template<class Comp>
 void EavlTree<Comp>::makeEmpty( EavlNode<Comp> *&t ) const{
-        //std::cout<<"ENTERING MAKEEMPTY METHOD"<<std::endl;
+        //std::cout<<"ENTERING MAKEEMPTY FUNCTION"<<std::endl;
         if ( t != NULL){
                 makeEmpty(t->left);
                 makeEmpty(t->right);
@@ -446,6 +669,14 @@ void EavlTree<Comp>::makeEmpty( EavlNode<Comp> *&t ) const{
 }
 
 
+/* FUNCTION: IS THIS STILL USED?
+   --------------------------------------------------------------------
+   USAGE: 
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+
+  
+ */
 template<class Comp>
 void EavlTree<Comp>::printTree( std::ostream &os,  EavlNode<Comp> *t )const {
         //std::cout << "FIXME: FIND A WAY WITHOUT STRING STREAM"<< std::endl;
@@ -460,18 +691,28 @@ void EavlTree<Comp>::printTree( std::ostream &os,  EavlNode<Comp> *t )const {
         //std::cout <<"END OF TREE"<<std::endl;
 }
 
-        
+
+
+/* FUNCTION: insert
+   --------------------------------------------------------------------
+   USAGE: insert( string, nodePtr);
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+   Called by the insert wrapper function.
+   If x doesn't exist in tree, then create node for x and adjust tree
+   size.  Otherwise, increase the frequency of x in the tree. Each
+   nodes height is adjusted as the stack unwinds.
+ */        
 template<class Comp>
 void EavlTree<Comp>::insert( const Comp &x, EavlNode<Comp> *&t ) { //removed const to update tree_size
-        // std::cout<< "ENTERING INSERT METHOD"<<std::endl;
+        // std::cout<< "ENTERING INSERT FUNCTION"<<std::endl;
         /*Base case */
         /*This Node doesn't exist in the tree*/
         if (t== NULL ){
                 t = new EavlNode<Comp>( x, NULL, NULL );
-                //std::cout<<"INCREMENTING SIZE"<<std::endl;
                 tree_size++; /*ADD ONE NODE TO SIZE  */
-                std::cout<<x<<"("<< t->frequency<<")"<<std::endl;
-                //std::cout<< "initial node_height of t="<<t->node_height<<std::endl;
+                std::cout<<x<<"\t"<< t->frequency<<std::endl;
+               
         }
         /* x goes left of root  */
         else if( x< t->element ){
@@ -497,27 +738,40 @@ void EavlTree<Comp>::insert( const Comp &x, EavlNode<Comp> *&t ) { //removed con
                                 doubleWithRightChild( t );
                 }
         }
-        else  {
-               t->frequency++ ; //duplicate increase frequency
-               std::cout<<x<<"("<< t->frequency<<")"<<std::endl;
+        else  {/*DUPLICATE INCREASE FREQUENCY*/
+                t->frequency++ ; 
+               std::cout<<x<<"\t"<< t->frequency<<std::endl;
         }
+        /*ADJUST HEIGHT OF NODE  */
         t->node_height = std::max( n_height( t->left ), n_height( t->right )) + 1;
         //std::cout<< "final height of t="<<t->node_height<<std::endl;
 }
 
 
+/* FUNCTION: remove
+   --------------------------------------------------------------------
+   USAGE: remove( string, nodePtr);
+   --------------------------------------------------------------------
+   DESCRIPTION:
+   Called by the remove wrapper function.
+   Removes the string from the tree by recussively searching for the
+   right position and if found, and frequency = 1 remove the node,
+   otherwise decrease the frequency by 1. Each nodes height is
+   adjusted as the stack unwinds.
+ */
 template <class Comp>
-void EavlTree<Comp>::remove( const Comp & x, EavlNode<Comp> *& t ) { //removed const to update tree_size
-        //std::cout<<"ENTERING REMOVE METHOD"<<std::endl;
-        
+void EavlTree<Comp>::remove( const Comp & x, EavlNode<Comp> *& t, int & freq ) { //removed const to update tree_size
+        //std::cout<<"ENTERING REMOVE FUNCTION"<<std::endl;
+        //int freq = -1;
         if (t == NULL )
-                //can't delete from an empty tree
+                //can't delete from an empty tree or a non-existant node
+                //freq = 0;
                 return;
 
-        /* Delete from Left Subtree  */
+        /* Call remove on Left Subtree  */
         if ( x < t->element ){
                 //delete from left subtree
-                remove( x, t->left );
+                remove( x, t->left, freq );
 
                 if( n_height( t->right )- n_height( t->left ) ==2 ){
                         /*Find the correct balance condition LL LR RL RR  */
@@ -527,10 +781,9 @@ void EavlTree<Comp>::remove( const Comp & x, EavlNode<Comp> *& t ) { //removed c
                                 doubleWithRightChild( t );
                 }
         }
-
-        /* Delete from Right Subtree */
+        /* Call remove on Right Subtree */
         else if( x > t->element ){
-                remove( x,t->right );
+                remove( x,t->right, freq );
                 /*Balance Test  */
                 if (n_height( t->left )  - n_height( t->right ) ==2 ) {
                         if( n_height((t->left)->left) >= n_height((t->left)->right))
@@ -539,26 +792,32 @@ void EavlTree<Comp>::remove( const Comp & x, EavlNode<Comp> *& t ) { //removed c
                                 doubleWithLeftChild( t );
                 }
         }
-
-        /* Shazam delete this sucker  */
+        /* Shazam delete this sucker or decrease frequency */
         else{
                 std::cout << "CORRECT NODE FOUND"<<std::endl;
-                std::cout <<t->element<<"("<<t->frequency<<")"<<std::endl;
+                std::cout <<t->element<<"\t"<<t->frequency<<std::endl;
                 /*Found the word but frequency > 1 so decrease by 1  */
                 if ( t->frequency > 1){
                         
                         t->frequency--;
-                        std::cout <<" New Frequency of ["<<t->element<<"]("<<t->frequency<<")"<<std::endl;
+                        freq = t->frequency;
+                        //std::cout << x << "\t" << freq<<std::endl;
+                        //std::cout <<" New Frequency of ["<<t->element<<"]("<<t->frequency<<")"<<std::endl;
                         return;
                 }
-                                
                 /*Both subtrees have stuff  */
                 else  if(( t->left != NULL ) && (t->right != NULL )) {
-                        std::cout << "REMOVE WITH 2 SUBTREES"<<std::endl;
-                        /*replace element  with next inorder successor */
+                        //std::cout << "REMOVE WITH 2 SUBTREES"<<std::endl;
+                        /*REPLACE ELEMENT WITH INORDER SUCCESSOR
+                          NEED TO INCREASE THE FREQENCY OF THE MIN NODE
+                          OTHERWISE IT WILL BE REMOVED TO FREQUENCY 0 
+                         */
                         t->element = findMin(t->right)->element;
+                        findMin(t->right)->frequency++;
+                       
                         /* get rid of the duplicate */
-                        remove( t->element, t->right );
+                        /*FIXME:  THIS MAY BE AN ERROR SINCE FREQ IS FROM THE COPIED ELEMENT  */
+                        remove( t->element, t->right, freq );
                         /* Balance Test again  */
                         if (n_height( t->left ) - n_height( t->right ) == 2){
                                 if( n_height((t->left)->left) >= n_height((t->left)->right))
@@ -567,22 +826,35 @@ void EavlTree<Comp>::remove( const Comp & x, EavlNode<Comp> *& t ) { //removed c
                                         doubleWithLeftChild( t );
                         }
                 }
-
                 else {
                         EavlNode<Comp> * oldNode = t;
                         t = (t->left != NULL) ? t->left:t->right;
                         delete oldNode;
                         tree_size--;  /*SUBTRACT ONE NODE FROM SIZE  */
+                        freq = 0;
+                        //std::cout << x << "\t" << 0<<std::endl;
                 }
         }
+        /*ADJUST HEIGHT OF NODE*/
         if (NULL != t)
                 t->node_height = std::max( n_height(t->left ), n_height( t->right )) + 1;
         // std::cout << "LEAVING REMOVE"<<std::endl;
+        //return ;
 }
 
+/* FUNCTION: rotateWithLeftChild
+   --------------------------------------------------------------------
+   USAGE: rotateWithLeftChild( nodePtr );
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+   Single rotation on node 2N.  2N->left gets a new pointer N, then 
+   2N->left is shifted to point to N->right.  And N->right shifts to
+   point at 2N.  Effectively reducing the size of the tree to its
+   previous height.    
+ */
 template<class Comp>
 void EavlTree<Comp>::rotateWithLeftChild( EavlNode<Comp> *& k2) const {
-        //std::cout<<"ENTERING ROTATE WITH LEFT CHILD"<<std::endl;
+        std::cout<<"ENTERING ROTATE WITH LEFT CHILD"<<std::endl;
         EavlNode<Comp> *k1 = k2->left;
         k2->left = k1->right;
         k1->right= k2;
@@ -591,9 +863,19 @@ void EavlTree<Comp>::rotateWithLeftChild( EavlNode<Comp> *& k2) const {
         k2 = k1;
 }
 
+/* FUNCTION: rotateWithRightChild
+   --------------------------------------------------------------------
+   USAGE: rotateWithRightChild( eavlNode );
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+   Single rotation on node N.  N->right gets a new pointer 2N, then 
+   N->right is shifted to point to 2N->left.  And 2N->left shifts to
+   point at N.  Effectively reducing the size of the tree to its
+   previous height. 
+ */
 template<class Comp>
 void EavlTree<Comp>::rotateWithRightChild( EavlNode<Comp> *&k1 ) const{
-        //std::cout<<"ENTERING ROTATE WITH RIGHT CHILD"<<std::endl;
+        std::cout<<"ENTERING ROTATE WITH RIGHT CHILD"<<std::endl;
         EavlNode<Comp> *k2 = k1->right;
         k1->right = k2->left;
         k2->left = k1;
@@ -604,6 +886,14 @@ void EavlTree<Comp>::rotateWithRightChild( EavlNode<Comp> *&k1 ) const{
 
 
 /*FIXME : UNDERSTAND THIS WELL   */
+/* FUNCTION: doubleWithLeftChild
+   --------------------------------------------------------------------
+   USAGE: doubleWithLeftChild( eavlNode );
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+   Double rotation, 1st on left child of node, then on node itself.
+  
+ */
 template<class Comp>
 void EavlTree<Comp> ::doubleWithLeftChild( EavlNode<Comp> *& k3 ) const{
         //std::cout<<"ENTERING DOUBLE WITH LEFT CHILD"<<std::endl;
@@ -612,6 +902,16 @@ void EavlTree<Comp> ::doubleWithLeftChild( EavlNode<Comp> *& k3 ) const{
 
 }
 
+
+/* FUNCTION: doubleWithRightChild
+   --------------------------------------------------------------------
+   USAGE: doubleWithRightChild( eavlNode);
+   --------------------------------------------------------------------
+   DESCRIPTION:
+   Double rotation on right child of node then rotation on node itself. 
+
+  
+ */
 template<class Comp>
 void EavlTree<Comp>::doubleWithRightChild( EavlNode<Comp> *&k1 ) const {
         //std::cout<<"ENTERING DOUBLE WITH RIGHT CHILD"<<std::endl;

@@ -6,7 +6,7 @@
 #
 
 USERNAME = ec93
-EXNAME   = trees
+EXNAME   = hw2
 TARDIR   = $(USERNAME)_$(EXNAME)
 CPP 	 =  /usr/bin/g++
 CC  	 =  /usr/bin/gcc
@@ -25,7 +25,7 @@ $(EXNAME) : $(OBJS)
 	@ echo "Changed files: $?"
 
 # OBJECTS
-main.o: main.cpp Logger.h  EavlTree.h
+main.o: main.cpp EavlTree.h
 #Poly.o: Poly.cpp Poly.h Logger.h
 # END OBJECTS
 .PHONY: all clean cleanall help

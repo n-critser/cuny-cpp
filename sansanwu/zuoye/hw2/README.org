@@ -5,7 +5,7 @@
 * TASKS
 ** TODO Testing: Exception Handling 
 *** DONE malformed lines
-*** TODO freq of a non-existant node
+*** DONE freq of a non-existant node
 Node (word) that doesn't exists returns
 *** TODO output of find and all commands
 *** TODO tree height overall and size
@@ -26,11 +26,11 @@ Node (word) that doesn't exists returns
 ** STARTED Command
 *** TODO internal path length
 *** STARTED OUTPUT DISPLAY FOR ALL COMMAND "WORD" <TAB> FREQUENCY OR NOT_FOUND
-*** DONE insert <word>
-*** DONE remove <word>
+*** STARTED insert <word>  !!! MAKE RETURN INT
+*** STARTED remove <word>  !!! MAKE Return int
 *** DONE find <word>
 seg fault ? 
-*** STARTED display
+*** STARTED display        !!!function to take a stream? 
 *** STARTED report 
 reports the stats
 1. size of tree

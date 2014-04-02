@@ -81,7 +81,7 @@ int main(int argc, char* argv[]){
                                  valid = true;        
                  }
                  if (valid != true){
-                         std::cerr << "INVALID COMMAND STRING"<<std::endl;
+                         std::cerr << "***ERROR: INVALID COMMAND STRING--SKIPPING***"<<std::endl;
                          std::cerr << "You Entered:" << command<<std::endl;
                          strin.clear();
                          continue;
@@ -105,22 +105,21 @@ int main(int argc, char* argv[]){
     
                  
                  if (word.length()>32){
-                         std::cerr << "MAX WORD LENGTH = 32 CHARS"<< std::endl;
-                         std::cerr<< "INVALID WORD LENGTH"<<std::endl;
+                         std::cerr<< "***ERROR: EXCEDED WORD LENGTH***"<<std::endl;
                          word = "-1";
                          strin.clear();
                          continue;
                  }
                  strin >>overflow;
                  if ( overflow != "-1"){
-                         std::cerr << "MALFORMED INPUT LINE" << std::endl;
+                         std::cerr << "***ERROR: MALFORMED INPUT LINE***" << std::endl;
                          strin.clear();
                          overflow = "-1";
                          word = "-1";
                          continue;
                  }
                  if ( word == "-1"){
-                         std::cerr << "INVALID INPUT: WORD NOT FOUND"<<std::endl;
+                         std::cerr << "***ERROR: INVALID INPUT- WORD NOT FOUND***"<<std::endl;
                         
                  }
                          
@@ -133,7 +132,7 @@ int main(int argc, char* argv[]){
                          eavl_strings.remove(word);
                  }
                  else if ((command == "find" ) && (word != "-1")){
-                         std::cout << eavl_strings.find(word,testFreq)<<std::endl;
+                         eavl_strings.find(word, testFreq);
                  }
                  else if ((command == "assert") && (word != "-1")){
                          int eval = atoi(word.c_str());

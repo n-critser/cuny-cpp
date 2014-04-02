@@ -2,7 +2,7 @@
 
 ## Executable name = trees : Adjust accordingly
 function test {
-    ./trees $1
+    ./hw2 $1
 }
 
 ## Make the program 

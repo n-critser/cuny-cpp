@@ -17,7 +17,15 @@ report
 insert		     fancy-pants
 
 test
-
+remove fancy-pants
+find fancy-pants
+insert               ford
+insert		     chevy
+insert 		     lincoln
+remove chevy
+find distancerunning
+find chevy
+find ford
 insert  facist
 report
 find facist
@@ -26,7 +34,6 @@ find
 find	                       fancy-pants
 report
 display
-assert 7
 
 insert           distance=to\mars
 display
@@ -41,6 +48,10 @@ report
 find	fancy-pants
 display
 display fancy-pants
+remove fancy-pants
+remove fancy-pants
+remove fancy-pants
+remove fancy-pants
 insert
 insert hello
 quit
