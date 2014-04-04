@@ -1,0 +1,36 @@
+insert           first
+insert                 second
+insert                       third
+display
+insert                           fourth
+insert				 fourth
+insert 				 fourth
+insert         fifth
+insert                  sixth
+display
+insert                         seventh
+display
+insert     eighth
+insert             ninth
+find     first
+find              second
+find                       third
+find        fourth
+display
+report
+remove         first
+remove second
+remove second
+display
+find second
+find first
+             find         last
+find     fourth
+find  fourth      fifth
+find    "sixth"
+insert "sixth"
+display
+insert  sixth
+report
+display
+quit

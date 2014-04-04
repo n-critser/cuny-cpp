@@ -1,0 +1,33 @@
+insert           distance=to\mars
+insert facist
+find      facist
+report
+dispaly
+insert  fancy-pants
+insert  fancy-pants
+insert  fancy-pants
+insert  fancy-pants
+insert  Fancy-pants
+insert  Fancy-panTS
+insert  Fancy-pants
+report
+find	fancy-pants
+display
+remove Fancy-pants
+remove fancy-pants
+remove fancy-pants
+remove fancy-pants
+remove fancy-pants
+remove fancy-pants
+remove fancy-pants
+display
+report
+remove 
+insert hello
+remove hello
+remove facist
+display
+remove              distance=to\mars
+report
+display
+quit

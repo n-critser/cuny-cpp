@@ -1,0 +1,24 @@
+insert one
+insert two
+insert three
+display
+report
+insert four
+insert five
+display
+report
+insert six
+display
+report
+insert seven
+insert eight
+insert nine
+insert ten
+display
+report
+insert eleven
+insert twelve
+insert thirteen
+display
+report
+quit
