@@ -3,16 +3,18 @@
 #+STARTUP: showall
 #+AUTHOR: N-CRITSER
 * TASKS
-** TODO Testing: Exception Handling 
+** STARTED Testing: Exception Handling 
 *** DONE malformed lines
 *** DONE freq of a non-existant node
 Node (word) that doesn't exists returns
-*** TODO output of find and all commands
-*** TODO tree height overall and size
+*** STARTED output of find and all commands
+*** STARTED tree height overall and size
+
+** STARTED Comments for everything 
  
 ** STARTED I/O stream
 *** DONE ostream << operator
-*** TODO in_order, post_order ( test for correct avl ness)
+*** DONE in_order, post_order ( test for correct avl ness)
 
 ** DONE EAVLtree current Height (test)
 *** int height = height of the tree; 
@@ -20,18 +22,17 @@ Node (word) that doesn't exists returns
 ** DONE number of nodes in tree
 *** size = (number of nodes in tree) 
 
-** TODO internal path length
+** STARTED internal path length
 *** nodeHeight = height of each node ( sum of these is the internal path length)
 
 ** STARTED Command
-*** TODO internal path length
 *** STARTED OUTPUT DISPLAY FOR ALL COMMAND "WORD" <TAB> FREQUENCY OR NOT_FOUND
-*** STARTED insert <word>  !!! MAKE RETURN INT
-*** STARTED remove <word>  !!! MAKE Return int
+*** DONE insert <word>  !!! MAKE RETURN INT
+*** DONE remove <word>  !!! MAKE Return int
 *** DONE find <word>
 seg fault ? 
 *** STARTED display        !!!function to take a stream? 
-*** STARTED report 
+*** DONE report 
 reports the stats
 1. size of tree
 2. height of tree
