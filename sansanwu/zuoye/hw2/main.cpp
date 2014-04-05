@@ -98,7 +98,8 @@ int main(int argc, char* argv[]){
                                  continue;
                          }
                          else if (command == "display"){
-                                 std::cout<< eavl_strings<<std::endl;
+                                 //std::cout<< eavl_strings<<std::endl;
+                                 eavl_strings.display(std::cout);
                                  continue;
                          }
                  }
