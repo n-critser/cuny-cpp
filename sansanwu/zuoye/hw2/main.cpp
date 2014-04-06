@@ -1,13 +1,17 @@
 /*******************************************************************************
   Title          : main.cpp
-  Author         : n-critser 
-  Created on     : 
-  Description    : 
-  Purpose        : 
-  Usage          : ./EXECUTABLE
-  Build with     : g++ -o main main.cpp 
-  Modifications  : 
- 
+  Author         : N-Critser
+  Created on     : 4-06-2014
+  Description    : main.cpp for HW2 project
+  Purpose        : see above
+  Usage          : ./EXECUTABLE INPUT.TXT
+  Build with     : g++ -o hw2 main.cpp 
+  References     :
+                 : 1: Stewart Weiss :
+                 :    [http://www.compsci.hunter.cuny.edu/~sweiss/course_materials/csci335/csci335_s14.php]
+                 : 2: Mark Allen Weiss   :
+                 :    [ Data Structures and Algorithm Analysis in C++ 3rd Edition]
+
 *******************************************************************************/
 //#define NDEBUG
 #include <iostream>
@@ -32,13 +36,11 @@ int main(int argc, char* argv[]){
         
 
         /*REMOVE ASSERT WHEN DONE DEBUGGIN*/
-        const  int CMAX = 7;
-        std::string commands[] ={"assert","insert","remove","find","display","report","quit"};
+        const  int CMAX = 6;
+        std::string commands[] ={"insert","remove","find","display","report","quit"};
         
         char * argFile;
         std::ifstream inFile;
-        
-	std::cout << "number of args =" << argc << std::endl;
         std::string addressFile="";
 
 	/* THIS SECTION IS FOR FILE INPUT
@@ -46,8 +48,8 @@ int main(int argc, char* argv[]){
 	 * with suggestions for the usage of the
          */
 	 if (argc < 2) {
-                 std::cerr << "Address File not Found";
-                 std::cerr << "Usage:  " << argv[0] << " filename.txt" << std::endl;
+                 std::cerr << "***ERROR: INPUT FILE NOT FOUND"<<std::endl;
+                 std::cerr << "Program Usage:  " << argv[0] << " filename.txt" << std::endl;
 	    return -1;
 	  }
     
@@ -63,17 +65,19 @@ int main(int argc, char* argv[]){
          EavlTree<std::string> eavl_strings( "NOT-FOUND");
          std::string tree_string="";
          int testFreq = 0;
-         std::string command = "-1";
-         std::string word = "-1";
-         std::string overflow = "-1";
+         std::string command;
+         std::string word ;
+         std::string overflow ;
 
-         
+         try {
          while (std::getline(inFile,tree_string) ){
                  command= "-1";
                  word = "-1";
+                 overflow = "-1";
                  std::stringstream strin( tree_string);
                  strin>> command;
                  strin >>word;
+                 strin >>overflow;
                  bool valid = false;
                  /*COMPARE command  TO LIST OF VALID COMMAND STRINGS */
                  for ( int i = 0 ; i < CMAX; i ++){
@@ -82,11 +86,20 @@ int main(int argc, char* argv[]){
                  }
                  if (valid != true){
                          std::cerr << "***ERROR: INVALID COMMAND STRING--SKIPPING***"<<std::endl;
-                         std::cerr << "You Entered:" << command<<std::endl;
+                         //std::cerr << "You Entered:" << command<<std::endl;
                          strin.clear();
                          continue;
                  }
-                 //switch (command[0]){
+                 /*DENY INPUT IF OVERFLOW FLAG HAS A VALUE OTHER THAN "-1"*/
+                 if ( overflow != "-1"){
+                         std::cerr << "***ERROR: MALFORMED INPUT LINE***" << std::endl;
+                         strin.clear();
+                         //throw -1;
+                         //overflow = "-1";
+                         // word = "-1";
+                         continue;
+                 }
+                 /*ALL SINGLE INPUT LINE COMMAND ARE HERE*/
                  if (command != "-1" && word == "-1"){
                          if (command == "quit"){
                                  //case 'q' :{ 
@@ -104,23 +117,19 @@ int main(int argc, char* argv[]){
                          }
                  }
     
-                 
+                 /*TEST THE LENGTH OF THE INPUT WORD BEFORE ALLOWING THE COMMAND*/
                  if (word.length()>32){
                          std::cerr<< "***ERROR: EXCEDED WORD LENGTH***"<<std::endl;
-                         word = "-1";
+                         //word = "-1";
                          strin.clear();
                          continue;
                  }
-                 strin >>overflow;
-                 if ( overflow != "-1"){
-                         std::cerr << "***ERROR: MALFORMED INPUT LINE***" << std::endl;
-                         strin.clear();
-                         overflow = "-1";
-                         word = "-1";
-                         continue;
-                 }
+
+                 /*A WORD IS NEEDED FOR ALL COMMANDS BELOW  */
                  if ( word == "-1"){
                          std::cerr << "***ERROR: INVALID INPUT- WORD NOT FOUND***"<<std::endl;
+                         strin.clear();
+                         continue;
                         
                  }
                          
@@ -135,33 +144,19 @@ int main(int argc, char* argv[]){
                  else if ((command == "find" ) && (word != "-1")){
                          eavl_strings.find(word, testFreq);
                  }
-                 else if ((command == "assert") && (word != "-1")){
-                         int eval = atoi(word.c_str());
-                         std::cout << "Testing size["<<eavl_strings.size()<<"] : ["<<eval<<"]"<<std::endl;
-                         assert (eavl_strings.size()== eval);                       
-                 }
-                  
-                 word = "-1";
 
-                 
+                        
+           
          }
          
-         
-         
-         try {
-                 //std::cout << eavl_strings<< std::endl;
-                 // std::cout<<std::endl;
-                 // std::cout<< eavl_strings.find("skulls", testFreq)<<std::endl;
-                 // std::cout<< eavl_strings.find("pants", testFreq)<<std::endl;
-                 // std::cout<< eavl_strings.find("pants", testFreq)<<std::endl;
-                 // std::cout<< eavl_strings.find("this", testFreq)<<std::endl;
-                 // std::cout<< eavl_strings.find("hello", testFreq)<<std::endl;
-                 
-                 //eavl_strings.report();
-                 
+   
          } catch (...) {
-                 std::cerr << "EXCEPTION MANIPULATING TREE";
+                 std::cerr << "***EXCEPTION THROWN PROCESSING FILE***"<<std::endl;
+                 
          }
          
+         
+         
+
          return 0;
 }

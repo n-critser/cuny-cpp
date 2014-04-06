@@ -1,15 +1,18 @@
 /*******************************************************************************
   Title          : EavlTree.h
-  Author         : Code originally from Stewart Weiss 
-  Created on     : 
+  Author         : N-Critser
+  Created on     : 4-06-2014
   Description    : EavlTree 
   Purpose        : 
-  Usage          : ./EXECUTABLE
-  Build with     : g++ -o 
-  Modifications  : 
-
-  FIXME          :  ROTATIONS... elementAt(), traversal, print, ...
-
+  Usage          : ./EXECUTABLE INPUT.TXT
+  Build with     : g++ -o hw2 main.cpp
+  Modifications  : Modified AvlTree
+  References     :
+                 : 1: Stewart Weiss :
+                 :    [http://www.compsci.hunter.cuny.edu/~sweiss/course_materials/csci335/csci335_s14.php]
+                 : 2: Mark Allen Weiss   :
+                 :    [ Data Structures and Algorithm Analysis in C++ 3rd Edition]
+                 : 3: http://www.uow.edu.au/~nabg/ABC/C24.pdf
 *******************************************************************************/
 
 #ifndef EAVLTREE_H_
@@ -130,13 +133,13 @@ private:
  */
 template<class Comp>
 void EavlTree<Comp>::report() {
-        std::cout<<std::endl;
+        //std::cout<<std::endl;
         std::cout<<std::setw(15)<< " "<< "EAVLTREE INSTANCE REPORT"<< std::endl;
         std::cout<<std::setw(15)<< " "<<std::setw(18)<<"size "<<"= "<< size()<<std::endl;
         std::cout<<std::setw(15)<< " "<<std::setw(18)<<"height "<<"= " << height()<<std::endl;
         std::cout<<std::setw(15)<< " "<<std::setw(18)<<"Int. Path Length "<<"= "<<int_pathlength()  <<std::endl;
         std::cout<<std::setw(15)<< " "<<std::setw(18)<<"Ave. Nodes hit with Find  " <<"= "<< ave_nodevisits()  <<std::endl;
-        std::cout<<std::endl;
+        //std::cout<<std::endl;
 }
 
 
@@ -169,6 +172,10 @@ template<class Comp>
 double EavlTree<Comp>::ave_nodevisits()const{
         double nodes = double(nodes_searched);
         double finds = double(total_finds);
+        if (0 == finds ){
+                //std::cout<< "NO FINDS ISSUED YET"<<std::endl;
+                return 0;
+        }
         //std::cout << "nodes searched =  "<<nodes<<std::endl;
         //std::cout << "finds = " <<finds<<std::endl;
         return nodes/finds;
@@ -342,7 +349,7 @@ bool EavlTree<Comp>::isEmpty() const{
 template<class Comp>
 std::ostream & EavlTree<Comp>::display(std::ostream & os) const{
         printTree(os, root);
-        std::cout<<std::endl;
+        //std::cout<<std::endl;
         //preOrderPrint(os,root);
         return os;
 }
@@ -583,12 +590,16 @@ void EavlTree<Comp>::makeEmpty( EavlNode<Comp> *&t ) const{
 template<class Comp>
 void EavlTree<Comp>::printTree( std::ostream &os,  EavlNode<Comp> *t )const {
         //std::cout << "FIXME: FIND A WAY WITHOUT STRING STREAM"<< std::endl;
+
+        if (isEmpty())
+                os<<"***   EMPTY TREE   ***"<<std::endl;
         
         if( t!= NULL) {
                 printTree(os,  t->left);
                 os<<(t->element)<<std::endl;
                 printTree( os,t->right);
         }
+                
 }
 
 /* FUNCTION: IS THIS STILL USED?
