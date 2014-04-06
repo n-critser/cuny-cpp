@@ -29,13 +29,13 @@ private:
         int currentSize;
         bool isEmpty(){return currentSize <=0;}
         void percolateDown( int hole );
-        void heapify() { for (int i = currentSize/2; i > 0; i--) percolateDown(i);}
+        
 
 public:
 Heap() : currentSize(0) {};
                
         void insert ( const Comp & x);
-        
+        void heapify() { for (int i = currentSize/2; i >= 0; i--) percolateDown(i);}
         bool isFull () { return currentSize == MAX;}
         void display () ;
         void deleteMin();
@@ -61,8 +61,8 @@ template<class Comp>
 void Heap<Comp>::percolateDown(int hole){
         int child;
         Comp tmp = hArray[hole];
-        for ( ; hole * 2 <= currentSize; ){
-                child = hole *2;
+        for ( ; hole * 2 <= currentSize; ){  //2i 
+                child = hole *2;           //2i+1 
                 if ( child != currentSize && hArray[child+1] < hArray[child])
                         child++;
                 if( hArray[child] < tmp )

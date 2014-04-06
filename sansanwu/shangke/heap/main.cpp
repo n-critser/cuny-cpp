@@ -32,7 +32,8 @@ int main(int argc, char* argv[]){
         }
        
         intHeap.display();
-        
+        intHeap.heapify();
+        intHeap.display();
         
 	/*
 	 * If the program is ran without sufficient arguments it Will exit gracefully
