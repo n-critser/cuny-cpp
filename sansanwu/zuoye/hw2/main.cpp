@@ -131,8 +131,8 @@ int main(int argc, char* argv[]){
                          strin.clear();
                          continue;
                         
-                 }
-                         
+                 }  
+                       
                  else if ((command == "insert" ) && (word != "-1")){
                          //std::cout << "Inserting word = "<<word<<std::endl;
                          eavl_strings.insert(word);
@@ -154,9 +154,8 @@ int main(int argc, char* argv[]){
                  std::cerr << "***EXCEPTION THROWN PROCESSING FILE***"<<std::endl;
                  
          }
-         
-         
-         
+
+                  
 
          return 0;
 }

@@ -59,6 +59,7 @@ private:
 template <class Comp>
 class EavlTree {
 public:
+        /*Constructor  Inline*/
         explicit EavlTree (const Comp & notFound): root(NULL),
                 ITEM_NOT_FOUND(notFound),
                 tree_size(0) ,
@@ -87,7 +88,7 @@ public:
         bool isEmpty() const;
         void makeEmpty();
 /*remove this */        
-        const EavlTree & operator = ( const EavlTree & rhs );
+        const EavlTree & operator = (  EavlTree & rhs );
 
         /*PROVIDED BUT FUNCTIONALITY MATCHES DISPLAY FUNCTION */
         template <typename X>
@@ -101,14 +102,16 @@ private:
         int total_finds;   /* TOTAL NUMBER OF FINDS  */
         int nodes_searched;/* TOTAL NUMBER OF NODES SEARCHED */
         int int_pathlength(EavlNode<Comp> *&t, int&  inNodes, int & depth);  /*INTEGER SUM OF PATH LENGTHS  */
-        void insert( const Comp & x, EavlNode<Comp> *&t, int &freq) ;
+        void insert( const Comp & x, EavlNode<Comp> *&t, int &freq) ;   
         void remove( const Comp & x, EavlNode<Comp> *& t, int & freq ) ;
         EavlNode<Comp> *findMin( EavlNode<Comp> *t ) const;
         int find( const Comp & x, EavlNode<Comp> *t, int & freq) const;
         void makeEmpty( EavlNode<Comp> *&t ) const; /*DELETES ENTIRE TREE */
         void printTree( std::ostream& os, EavlNode<Comp> *t ) const;  /*RECURSIVE PRINT*/
         void preOrderPrint( std::ostream &os,  EavlNode<Comp> *t )const ; /*DEBUGGING PRE-ORDER PRINT  */
-        EavlNode<Comp> * clone( EavlNode<Comp> *t ) const; /*DEEP COPY*/
+        void  clone( EavlNode<Comp> *t,  EavlNode<Comp> *& rhs ) ; /*DEEP COPY*/
+//        void copy_tree(node *tree_ptr, node *& new_ptr)const ;
+
         int n_height( EavlNode<Comp> *t ) const;      /*HEIGHT OF A NODE*/
 
         void rotateWithLeftChild( EavlNode<Comp> *& k2 ) const; /* ROTATION  */ 
@@ -119,6 +122,35 @@ private:
 };
 
 /***************PUBLIC MEMBER FUNCTIONS: START HERE*****************/ 
+
+/* FUNCTION: copyConstructor
+   --------------------------------------------------------------------
+   USAGE: 
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+
+  
+ */
+template<class Comp>
+EavlTree<Comp>::EavlTree( const EavlTree & rhs){
+	copy(root, rhs.root);
+}
+
+/* FUNCTION: DESTRUCTOR
+   --------------------------------------------------------------------
+   USAGE: CALLED BY SYSTEM
+   --------------------------------------------------------------------
+   DESCRIPTION: 
+   Calls the recursive function makeEmpty, which does the work of
+   deleting the trees contents and returning memory.
+ */
+template<class Comp>
+EavlTree<Comp>:: ~EavlTree(){
+        makeEmpty(root);
+
+}
+
+
 
 
 /* FUNCTION: report
@@ -214,35 +246,6 @@ std::ostream& operator<< (  std::ostream& os , const EavlTree<Comp> & T){
                 T.display(os);
                 return os;
 
-
-}
-
-/* FUNCTION:
-   --------------------------------------------------------------------
-   USAGE: 
-   --------------------------------------------------------------------
-   DESCRIPTION: 
-
-  
- */
-//Copy Constructor
-template<class Comp>
-EavlTree<Comp>::EavlTree( const EavlTree & rhs){
-
-}
-
-
-/* FUNCTION: DESTRUCTOR
-   --------------------------------------------------------------------
-   USAGE: CALLED BY SYSTEM
-   --------------------------------------------------------------------
-   DESCRIPTION: 
-   Calls the recursive function makeEmpty, which does the work of
-   deleting the trees contents and returning memory.
- */
-template<class Comp>
-EavlTree<Comp>:: ~EavlTree(){
-        makeEmpty(root);
 
 }
 
@@ -416,24 +419,24 @@ int EavlTree<Comp>::remove( const Comp & x ) {
    USAGE: tree1 = tree2;
    --------------------------------------------------------------------
    DESCRIPTION:
-   
+   Overloaded assignment operator for EavlTree. 
 
   
  */
 template<class Comp>
-const EavlTree<Comp> & EavlTree<Comp>::operator=( const EavlTree & rhs ){
-         std::cout << "FIXME: I'M NOT DONE"<< std::endl;
-         return rhs;
+const EavlTree<Comp> & EavlTree<Comp>::operator=(  EavlTree & rhs ){
+        if(this != &rhs){
+                makeEmpty(root);
+                clone(root,rhs.root);
+	}
+        tree_size = rhs.size();
+        root->node_height = n_height(rhs.root);
+	return *this;
+
 }
-
-        
-
-
 /*************************************************************************************
                        PUBLIC MEMBER FUNCTIONS: END HERE
 **************************************************************************************/ 
-
-
 
 
 /*****************************************************************************************
@@ -441,7 +444,29 @@ const EavlTree<Comp> & EavlTree<Comp>::operator=( const EavlTree & rhs ){
 ******************************************************************************************/
 
 
+/* FUNCTION: clone
+   --------------------------------------------------------------------
+   USAGE: clone ( nodePtr, RHSnodePtr )
+   --------------------------------------------------------------------
+   DESCRIPTION:
+   Clone each element of the rhs into each new node of the EavlTree.
+ */
+template <class Comp>
+void EavlTree<Comp>::clone( EavlNode<Comp> *t,  EavlNode<Comp> *& rhs){
+//        void  clone( EavlNode<Comp> *t, EavlNode<Comp> *& rhs ) const; /*DEEP COPY*/
+	//pre order traversal
+	if(rhs != NULL) {
+		t = new EavlNode<Comp>(rhs->element, NULL, NULL);
+                t->frequency = rhs->frequency;
+                t->node_height = n_height(rhs);
+		clone (rhs->left, t->left);
+		clone (rhs->right, t->right);
+	}else
+		t = NULL;
+}
 
+
+        
 /* FUNCTION: int_pathlength
    --------------------------------------------------------------------
    USAGE: int_pathlength( nodePtr );

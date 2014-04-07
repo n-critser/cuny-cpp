@@ -3,14 +3,12 @@ g++  -Wall -Werror -g -I../include   -c -o main.o main.cpp
 Changed files: main.o
 
 ************RUNNING TEST ON FILE tests/findTest.txt***********
-number of args =2
 first	1
 second	1
 third	1
 first
 second
 third
-
 fourth	1
 fourth	2
 fourth	3
@@ -22,7 +20,6 @@ fourth
 second
 sixth
 third
-
 seventh	1
 fifth
 first
@@ -31,7 +28,6 @@ second
 seventh
 sixth
 third
-
 eighth	1
 ninth	1
 first	1
@@ -47,14 +43,11 @@ second
 seventh
 sixth
 third
-
-
                EAVLTREE INSTANCE REPORT
                             size = 9
                           height = 3
                 Int. Path Length = 6
                Ave. Nodes hit with Find  = 2.25
-
 first	NOT-FOUND
 second	NOT-FOUND
 second	NOT-FOUND
@@ -65,7 +58,6 @@ ninth
 seventh
 sixth
 third
-
 second	0
 first	0
 last	0
@@ -80,15 +72,12 @@ ninth
 seventh
 sixth
 third
-
 sixth	2
-
                EAVLTREE INSTANCE REPORT
                             size = 8
                           height = 3
                 Int. Path Length = 4
                Ave. Nodes hit with Find  = 3.11111
-
 "sixth"
 eighth
 fifth
@@ -97,30 +86,25 @@ ninth
 seventh
 sixth
 third
-
 EXIT COMMAND GIVEN------>GOODBYE
 ******TESTING COMPLETED ON FILE tests/findTest.txt*********
  
 
 ************RUNNING TEST ON FILE tests/insertTest.txt***********
-number of args =2
 fancy	1
 this	1
 tuesday	1
 666fat	1
-
                EAVLTREE INSTANCE REPORT
                             size = 4
                           height = 2
                 Int. Path Length = 1
-               Ave. Nodes hit with Find  = -nan
-
+               Ave. Nodes hit with Find  = 0
 666fat	1
 666fat
 fancy
 this
 tuesday
-
 distancerunning	1
 this	1
 666fat
@@ -128,14 +112,11 @@ distancerunning
 fancy
 this
 tuesday
-
-
                EAVLTREE INSTANCE REPORT
                             size = 5
                           height = 2
                 Int. Path Length = 1
                Ave. Nodes hit with Find  = 2
-
 fancy-pants	1
 fancy-pants	NOT-FOUND
 fancy-pants	0
@@ -147,29 +128,23 @@ distancerunning	1
 chevy	0
 ford	1
 facist	1
-
                EAVLTREE INSTANCE REPORT
                             size = 8
                           height = 3
                 Int. Path Length = 4
                Ave. Nodes hit with Find  = 2.66667
-
 facist	1
-
                EAVLTREE INSTANCE REPORT
                             size = 8
                           height = 3
                 Int. Path Length = 4
                Ave. Nodes hit with Find  = 2.71429
-
 fancy-pants	0
-
                EAVLTREE INSTANCE REPORT
                             size = 8
                           height = 3
                 Int. Path Length = 4
                Ave. Nodes hit with Find  = 2.875
-
 666fat
 distancerunning
 facist
@@ -178,7 +153,6 @@ ford
 lincoln
 this
 tuesday
-
 distance=to\mars	1
 666fat
 distance=to\mars
@@ -189,27 +163,22 @@ ford
 lincoln
 this
 tuesday
-
 facist	1
-
                EAVLTREE INSTANCE REPORT
                             size = 9
                           height = 3
                 Int. Path Length = 6
                Ave. Nodes hit with Find  = 2.88889
-
 fancy-pants	1
 fancy-pants	2
 fancy-pants	3
 fancy-pants	4
 fancy-pants	5
-
                EAVLTREE INSTANCE REPORT
                             size = 10
                           height = 3
                 Int. Path Length = 6
                Ave. Nodes hit with Find  = 2.88889
-
 fancy-pants	5
 666fat
 distance=to\mars
@@ -221,7 +190,6 @@ ford
 lincoln
 this
 tuesday
-
 fancy-pants	4
 fancy-pants	3
 fancy-pants	2
@@ -232,23 +200,19 @@ EXIT COMMAND GIVEN------>GOODBYE
  
 
 ************RUNNING TEST ON FILE tests/malformedTest.txt***********
-number of args =2
 fancy	1
 this	1
 tuesday	1
 666fat	1
-
                EAVLTREE INSTANCE REPORT
                             size = 4
                           height = 2
                 Int. Path Length = 1
-               Ave. Nodes hit with Find  = -nan
-
+               Ave. Nodes hit with Find  = 0
 666fat
 fancy
 this
 tuesday
-
 distancerunning	1
 pants	1
 666fat
@@ -257,14 +221,11 @@ fancy
 pants
 this
 tuesday
-
-
                EAVLTREE INSTANCE REPORT
                             size = 6
                           height = 2
                 Int. Path Length = 2
-               Ave. Nodes hit with Find  = -nan
-
+               Ave. Nodes hit with Find  = 0
 hello-world	1
 what	1
 666fat
@@ -275,7 +236,6 @@ pants
 this
 tuesday
 what
-
 pants	NOT-FOUND
 pants	NOT-FOUND
 pants	1
@@ -285,13 +245,11 @@ blackmail	1
 what	2
 what	3
 what	3
-
                EAVLTREE INSTANCE REPORT
                             size = 9
                           height = 3
                 Int. Path Length = 6
                Ave. Nodes hit with Find  = 4
-
 blackmail	1
 666fat
 blackmail
@@ -302,30 +260,24 @@ pants
 this
 tuesday
 what
-
-
                EAVLTREE INSTANCE REPORT
                             size = 9
                           height = 3
                 Int. Path Length = 6
                Ave. Nodes hit with Find  = 3
-
 EXIT COMMAND GIVEN------>GOODBYE
 ******TESTING COMPLETED ON FILE tests/malformedTest.txt*********
  
 
 ************RUNNING TEST ON FILE tests/removeTest.txt***********
-number of args =2
 distance=to\mars	1
 facist	1
 facist	1
-
                EAVLTREE INSTANCE REPORT
                             size = 2
                           height = 1
                 Int. Path Length = 0
                Ave. Nodes hit with Find  = 2
-
 fancy-pants	1
 fancy-pants	2
 fancy-pants	3
@@ -333,20 +285,17 @@ fancy-pants	4
 Fancy-pants	1
 Fancy-panTS	1
 Fancy-pants	2
-
                EAVLTREE INSTANCE REPORT
                             size = 5
                           height = 2
                 Int. Path Length = 1
                Ave. Nodes hit with Find  = 2
-
 fancy-pants	4
 Fancy-panTS
 Fancy-pants
 distance=to\mars
 facist
 fancy-pants
-
 Fancy-pants	1
 fancy-pants	3
 fancy-pants	2
@@ -358,52 +307,41 @@ Fancy-panTS
 Fancy-pants
 distance=to\mars
 facist
-
-
                EAVLTREE INSTANCE REPORT
                             size = 4
                           height = 2
                 Int. Path Length = 1
                Ave. Nodes hit with Find  = 2
-
 hello	1
 hello	NOT-FOUND
 facist	NOT-FOUND
 Fancy-panTS
 Fancy-pants
 distance=to\mars
-
 distance=to\mars	NOT-FOUND
-
                EAVLTREE INSTANCE REPORT
                             size = 2
                           height = 1
                 Int. Path Length = 0
                Ave. Nodes hit with Find  = 2
-
 Fancy-panTS
 Fancy-pants
-
 EXIT COMMAND GIVEN------>GOODBYE
 ******TESTING COMPLETED ON FILE tests/removeTest.txt*********
  
 
 ************RUNNING TEST ON FILE tests/zLenghtTest.txt***********
-number of args =2
 one	1
 two	1
 three	1
 one
 three
 two
-
-
                EAVLTREE INSTANCE REPORT
                             size = 3
                           height = 1
                 Int. Path Length = 0
-               Ave. Nodes hit with Find  = -nan
-
+               Ave. Nodes hit with Find  = 0
 four	1
 five	1
 five
@@ -411,14 +349,11 @@ four
 one
 three
 two
-
-
                EAVLTREE INSTANCE REPORT
                             size = 5
                           height = 2
                 Int. Path Length = 1
-               Ave. Nodes hit with Find  = -nan
-
+               Ave. Nodes hit with Find  = 0
 six	1
 five
 four
@@ -426,14 +361,11 @@ one
 six
 three
 two
-
-
                EAVLTREE INSTANCE REPORT
                             size = 6
                           height = 2
                 Int. Path Length = 2
-               Ave. Nodes hit with Find  = -nan
-
+               Ave. Nodes hit with Find  = 0
 seven	1
 eight	1
 nine	1
@@ -448,14 +380,11 @@ six
 ten
 three
 two
-
-
                EAVLTREE INSTANCE REPORT
                             size = 10
                           height = 3
                 Int. Path Length = 6
-               Ave. Nodes hit with Find  = -nan
-
+               Ave. Nodes hit with Find  = 0
 eleven	1
 twelve	1
 thirteen	1
@@ -472,14 +401,11 @@ thirteen
 three
 twelve
 two
-
-
                EAVLTREE INSTANCE REPORT
                             size = 13
                           height = 4
                 Int. Path Length = 13
-               Ave. Nodes hit with Find  = -nan
-
+               Ave. Nodes hit with Find  = 0
 EXIT COMMAND GIVEN------>GOODBYE
 ******TESTING COMPLETED ON FILE tests/zLenghtTest.txt*********
  
