@@ -9,6 +9,9 @@
 *** output
 *** complexity
 
+** TODO Hashing
+
+
 ** TODO Commands:
 *** TODO 1) find
 *** TODO 2) members
@@ -16,7 +19,6 @@
 *** TODO 4) cohort-ids
 *** TODO 5) info 
 ** TODO Input:
-** TODO Hashing
 ** TODO Union/Find
 ** TODO HeapSort
 ** TODO Priority Queue (Heap)
