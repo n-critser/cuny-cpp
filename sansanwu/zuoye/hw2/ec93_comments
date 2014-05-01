@@ -1,0 +1,111 @@
+GRADE: 90
+
+COMMENTS:
+
+Correctness and Performance
+Output is very well presented, and it is generally correct. You did everything
+you were supposed to do and it appears to be working. The only small issue is
+that the remove command results are not reported correctly. For this input:
+    insert  k
+    insert  b
+    insert  m
+    insert  a
+    insert  d
+    insert  g
+    insert  f
+    insert  j
+    insert  f
+    insert  f
+    insert  h
+    insert  h
+    report
+    remove  a
+    report
+    remove  d
+    report
+    remove  m
+    report
+    remove  g
+    report
+    remove  k
+    remove  j
+    report
+    quit
+this is your output:
+k	1
+b	1
+m	1
+a	1
+d	1
+g	1
+f	1
+j	1
+f	2
+f	3
+h	1
+h	2
+               EAVLTREE INSTANCE REPORT
+                            size = 9
+                          height = 3
+                Int. Path Length = 6
+               Ave. Nodes hit with Find  = 0
+a	NOT-FOUND
+               EAVLTREE INSTANCE REPORT
+                            size = 8
+                          height = 3
+                Int. Path Length = 4
+               Ave. Nodes hit with Find  = 0
+d	NOT-FOUND
+               EAVLTREE INSTANCE REPORT
+                            size = 7
+                          height = 3
+                Int. Path Length = 4
+               Ave. Nodes hit with Find  = 0
+m	NOT-FOUND
+               EAVLTREE INSTANCE REPORT
+                            size = 6
+                          height = 2
+                Int. Path Length = 2
+               Ave. Nodes hit with Find  = 0
+g	NOT-FOUND
+               EAVLTREE INSTANCE REPORT
+                            size = 5
+                          height = 2
+                Int. Path Length = 2
+               Ave. Nodes hit with Find  = 0
+k	NOT-FOUND
+j	NOT-FOUND
+               EAVLTREE INSTANCE REPORT
+                            size = 3
+                          height = 1
+                Int. Path Length = 0
+               Ave. Nodes hit with Find  = 0
+EXIT COMMAND GIVEN------>GOODBYE
+
+The remove command should not report that the key was not found
+because the frequency is zero AFTER it removed it!  Not found means it did
+not find it. -2
+
+The program does not maintain  pathlength efficiently, but instead
+recursively calculates  path length each time it needs it, in time
+proportion to the size of the tree.  (-2) The assignment stated:
+  "For full credit your solution must maintain the size, height, and internal 
+  pathlength information as efficiently as possible."
+It should have stored path length and updated it when the tree was 
+rebalanced. This was the only significant design problem in this assignment.
+
+
+Modularity, Design -3
+The class implementation should be in a separate .cpp file, not in the header
+file.  Even with templates, these must be enforced; the header file can use
+an include directive to include the cpp file if it cannot be compiled otherwise.
+
+Style
+It is easy to read and follows good style principles. Nice job.
+
+Documentation: -3
+Function and class documentation belongs in the
+header file and with function prototypes and class interfaces, 
+not with the function and class  implementation. 
+The point is for the client programmer to see the detailed function 
+description, and the implementation is supposed to be hidden.

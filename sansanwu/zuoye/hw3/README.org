@@ -1,0 +1,23 @@
+#+TITLE: Proj3: readme.org
+#+DATE:<2014-03-19 Wed>
+#+STARTUP: showall
+#+AUTHOR: N-CRITSER
+* TASKS
+** TODO Testing: 
+*** Exception Handling
+*** Input
+*** output
+*** complexity
+
+** TODO Commands:
+*** TODO 1) find
+*** TODO 2) members
+*** TODO 3) max
+*** TODO 4) cohort-ids
+*** TODO 5) info 
+** TODO Input:
+** TODO Hashing
+** TODO Union/Find
+** TODO HeapSort
+** TODO Priority Queue (Heap)
+** TODO 
