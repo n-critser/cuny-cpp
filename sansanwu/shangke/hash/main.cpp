@@ -38,12 +38,18 @@ int main(int argc, char* argv[]){
 	 */
 
         HashTable<std::string> table;
-        table.insert( "hello");
+        table.insert( "555-212-6666");
         table.printTable();
-        table.insert( "goodbye");
-        table.insert( "popcorn");
-        table.insert( "fancy");
-        table.insert( "whats the deal");
+        table.insert( "555-213-6565");
+        table.insert( "555-223-6565");
+        table.insert( "454-223-6565");
+        table.insert( "454-671-1233");
+        table.insert( "546-333-1111");
+        table.insert( "555-214-6565");
+        table.insert( "555-225-6565");
+        table.insert( "454-226-6565");
+        table.insert( "454-677-1233");
+        table.insert( "546-338-1111");
         
         table.printTable();
          
