@@ -12,7 +12,7 @@ CPP 	 =  /usr/bin/g++
 CC  	 =  /usr/bin/gcc
 SRCS 	 = $(wildcard *.cpp)
 HEADS    = $(wildcard *.h)# Logger.h Poly.h
-OBJS 	 = main.o #$(patsubst %.cpp, %.o, $(SRCS))
+OBJS 	 = main.o Network.o Player.o # $(patsubst %.cpp, %.o, $(SRCS)) #main.o
 EXECS	 = $(EXNAME) #$(patsubst %.cpp, %,$(SRCS))
 CPPFLAGS = -Wall -Werror -g -I../include #-std=c++11 #-Werror  stronger than -Wall
 CFLAGS 	 = -Wall -g
@@ -25,8 +25,9 @@ $(EXNAME) : $(OBJS)
 	@ echo "Changed files: $?"
 
 # OBJECTS
-main.o: main.cpp EavlTree.h
-#Poly.o: Poly.cpp Poly.h Logger.h
+main.o: main.cpp Network.cpp
+Network.o: Network.cpp Network.h Player.h Player.cpp HashTable.h
+Player.o : Player.cpp Player.h
 # END OBJECTS
 .PHONY: all clean cleanall help
 

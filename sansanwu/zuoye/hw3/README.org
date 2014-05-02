@@ -9,17 +9,28 @@
 *** output
 *** complexity
 
-** TODO Hashing
+** STARTED HashTable
+added new standford hashtable and put into the shangke section
+exchange that for the piece of crap from the textbook and try to 
+make some real progress tomorrow.  at least now i understand 
+a key value pair is indepedent of running time of an algorithm. 
+hashing is just  a fast way of finding things.   
+** TODO Classes
+1) Cohort
+2) Player
+3) Network
+4) HashTable
+5) Heap
+6) DisjSets
 
-
+** TODO Cohorts (sets) 
+** TODO Input:
+** TODO Union/Find
+** TODO HeapSort
+** TODO Priority Queue (Heap)
 ** TODO Commands:
 *** TODO 1) find
 *** TODO 2) members
 *** TODO 3) max
 *** TODO 4) cohort-ids
 *** TODO 5) info 
-** TODO Input:
-** TODO Union/Find
-** TODO HeapSort
-** TODO Priority Queue (Heap)
-** TODO 

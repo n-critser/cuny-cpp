@@ -13,8 +13,11 @@
 #include <cstdlib>
 #include <cassert>
 #include <fstream>
+#include <sstream>
 #include <string>
 
+
+#include "Network.h"
 /*
  *int main(int argc, char* argv[]):
  ************************************
@@ -23,6 +26,10 @@
 int main(int argc, char* argv[]){
 
 
+        const  int CMAX = 6;
+        std::string commands[] ={"insert","remove","find","display","report","quit"};
+        
+        
 	std::cout << "number of args =" << argc << std::endl;
 
         //std::string addressFile="";
@@ -48,6 +55,15 @@ int main(int argc, char* argv[]){
          std::ifstream inFile;
          inFile.open(argFile);
 
+
+         
+         /* Test file stream before sending to controller  */
+         if(!inFile){
+                 std::cerr << "Valid File not found:  ** Exiting ** " << std::endl;
+                 exit(1);
+         }
+
+         
          /*
            FIXME: INPUT TEST
            ----------------------------------
@@ -56,11 +72,40 @@ int main(int argc, char* argv[]){
           */
          try{
                  std::string str;
-                 
+                 std::string command;
+                 std::string Player1 ;
+                 std::string Player2 ;
+                 std::string exchange ;
+                 Network players;
+                 for (int i = 0; i < CMAX; i++)
+                         std::cout<< "commands["<<i<<"]="<<commands[i]<<std::endl;
                  while (std::getline(inFile,str, '\n')) {
-                         std::cout << str<<std::endl;
+                         command= "-1";
+                         Player1 = "-1";
+                         Player2 = "-1";
+                         exchange = "-1";
+                         std::stringstream strin( str);
+                         strin>> command;
+                         strin >>Player1;
+                         strin >>Player2;
+                         strin >>exchange;
+                         players.insert(Player1);
+                         players.insert(Player2);
+                         bool valid = false;
+                         if (command == "data"){
+                                 std::cout <<command
+                                           <<"\n"
+                                           <<"P1="<< Player1
+                                           <<"\tP2="<<Player2
+                                           <<"\texchange="<<exchange
+                                           <<std::endl;
+                                 std::cout <<"valid="<<valid<<std::endl;
+                         }else
+                                 std::cout << "NO DATA FOUND" << std::endl;
+                         
          
                  }
+                 players.display();
          }catch (...){
                  std::cout << "Error Parsing File" << std::endl;
          }
