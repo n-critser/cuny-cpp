@@ -1,8 +1,8 @@
 /*******************************************************************************
-  Title          : blank.h
+  Title          : Heap.h
   Author         : n-critser 
   Created on     : 
-  Description    : 
+  Description    : Code from Stewart Weiss 
   Purpose        : 
   Usage          : ./EXECUTABLE
   Build with     : g++ -o 
