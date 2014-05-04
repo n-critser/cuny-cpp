@@ -22,20 +22,16 @@ class Player {
 private:
         int hash_value;
         int unionS_index;
-        int cohort_id;
         std::string phone_number;
         friend class Network;
 
 public:
         Player();
         Player(std::string ph );
-        Player(std::string ph, int co_ID);
         bool operator== ( const Player & rhs ) const;
         bool operator!= (const Player & rhs ) const;
-
-        void update_cohort_id( int );
-        const int get_u_index() const;
-        const int get_cohort_id() const;
+        
+        
         const std::string get_phone_number() const ;
 };
 

@@ -89,8 +89,8 @@ int main(int argc, char* argv[]){
                          strin >>Player1;
                          strin >>Player2;
                          strin >>exchange;
-                         players.insert(Player1);
-                         players.insert(Player2);
+                         //players.insert(Player1);
+                         //players.insert(Player2);
                          bool valid = false;
                          if (command == "data"){
                                  std::cout <<command
@@ -99,6 +99,7 @@ int main(int argc, char* argv[]){
                                            <<"\tP2="<<Player2
                                            <<"\texchange="<<exchange
                                            <<std::endl;
+                                 players.add_connection(Player1,Player2,exchange);
                                  std::cout <<"valid="<<valid<<std::endl;
                          }else
                                  std::cout << "NO DATA FOUND" << std::endl;
@@ -106,6 +107,7 @@ int main(int argc, char* argv[]){
          
                  }
                  players.display();
+                 players.show_cohorts();
          }catch (...){
                  std::cout << "Error Parsing File" << std::endl;
          }
