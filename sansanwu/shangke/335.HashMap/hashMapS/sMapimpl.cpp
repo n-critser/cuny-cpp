@@ -151,7 +151,10 @@ void sMap<ValueType>::mapAll (){//( sMapFnt fn) {   //( mapFnt fn)
         for (int i = 0; i< nBuckets; i++){
                 for (cellT *cp = buckets[i]; cp !=NULL; cp = cp->link){
                         //fn(cp->key, cp->value);
-                        std::cout<< cp->key << cp->value<<std::endl;
+                        std::cout<< "key: " <<cp->key
+                                 <<"\n"
+                                 << "cohort_id: "<< cp->value->get_cohort_id()
+                                 <<std::endl;
                 }
         }
 }

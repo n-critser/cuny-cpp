@@ -4,14 +4,17 @@ CXXFLAGS = -c -g  -Wall -Werror
 
 all : map
 
-map: main.o
-	$(CXX)  main.o -o map
+map: main.o Player.o
+	$(CXX)  main.o Player.o -o map
 
 main.o : main.cpp sMap.h
 	$(CXX) $(CXXFLAGS)  main.cpp sMapimpl.cpp
 
 #sMap.o : sMapimple.cpp sMap.h
 #	$(CXX) $(CXXFLAGS) sMapimple.cpp
+
+Player.o : Player.cpp Player.h
+	$(CXX) $(CXXFLAGS) Player.cpp
 clean :
 	-rm *.o map
 

@@ -6,6 +6,7 @@
 #include<cstdlib>
 #include<iostream>
 #include<string>
+#include"Player.h"
 #include"sMap.h"
 
 void displayEntry ( std::string key, int value){
@@ -17,15 +18,19 @@ void displayEntry ( std::string key, int value){
 //}
 
 int main(){
-        sMap<int> map1;
-        map1.put("hello",3);
-        std::cout << map1.get("hello") << std::endl;
-        map1["fancy"]=10;
-        map1.put("dumb",1);
-        map1.get("fish");
-        //map1.mapAll(displayNumbers);
-        map1.mapAll();
-        
 
+
+        sMap<Player*> pMap;
+        Player* pStart= new Player ("545-666-7676");
+        pMap.put( (pStart->get_phone_number()), pStart);
+        pMap.mapAll();
+        pStart = pMap.get("545-666-7676");
+        pStart->update_cohort_id(44);
+        pMap.mapAll();
+
+        
+        pStart= NULL;
+        delete pStart;
+               
         return 0;
 }
