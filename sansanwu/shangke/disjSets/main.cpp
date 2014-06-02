@@ -41,9 +41,19 @@ int main(int argc, char* argv[]){
 
         DisjSets numbers(20);
 
-        numbers.unionS(1,6);
-        numbers.unionS(3,4);
-        numbers.unionS(1,9);
+        numbers.unionS(numbers.find(1),numbers.find(6));
+        numbers.unionS(numbers.find(3),numbers.find(4));
+        numbers.unionS(numbers.find(1),numbers.find(9));
+        numbers.unionS(numbers.find(1),numbers.find(5));
+        numbers.unionS(numbers.find(6),numbers.find(5));
+
+        numbers.unionS(numbers.find(4),numbers.find(5));
+        numbers.unionS(numbers.find(7),numbers.find(5));
+        numbers.unionS(numbers.find(8),numbers.find(17));
+        numbers.unionS(numbers.find(8),numbers.find(16));
+        numbers.unionS(numbers.find(8),numbers.find(15));
+        numbers.unionS(numbers.find(8),numbers.find(0));
+        numbers.unionS(numbers.find(8),numbers.find(3));
         numbers.print();
  /* METHOD:
    --------------------------------------------------------------------
