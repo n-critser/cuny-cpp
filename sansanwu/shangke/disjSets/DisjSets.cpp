@@ -49,10 +49,14 @@ void DisjSets::unionS ( int root1, int root2){
         if (root1 != root2) {
                 if( sets[root2] < sets[root1]){
                         //root2 is deeper
+                        std::cout <<"sets["<< root2<<"] < sets["
+                                  << root1<<"]"<<std::endl;  
                         sets[root2]+= sets[root1];
                         sets[root1] = root2;
                 } else {
                         //root1 is deeper
+                        std::cout <<"sets["<< root1<<"]="<<sets[root1]<<" <= sets["
+                                  << root2<<"]="<<sets[root2]<<std::endl;  
                         sets[root1]+= sets[root2];
                         sets[root2] = root1;
                 }
