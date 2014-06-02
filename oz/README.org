@@ -1,0 +1,17 @@
+
+
+* Bookmarks 
+http://codex.cs.yale.edu/avi/os-book/OS8/os8c/
+http://www.dmoz.org/Computers/Software/Operating_Systems/Open_Source/
+https://www.kernel.org/pub/linux/kernel/
+http://www.lynx.com/industry-solutions/industry-standards/posix/
+http://cplus.kompf.de/posixlist.html
+https://www.gnu.org/software/libc/manual/html_node/Roadmap-to-the-Manual.html#Roadmap-to-the-Manual
+https://www.gnu.org/software/libc/manual/html_node/System-Calls.html#System-Calls
+https://www.gnu.org/software/libc/manual/html_node/Low_002dLevel-I_002fO.html#Low_002dLevel-I_002fO
+http://www.vm.ibm.com/history/
+http://www.snee.com/bob/opsys.html
+http://www.linux-kvm.org/page/Main_Page
+http://xenproject.org/
+
+
