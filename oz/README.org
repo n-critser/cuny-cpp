@@ -1,3 +1,10 @@
+#+STARTUP: overview
+#+AUTHOR: n-critser
+#+TITLE: README.org
+
+
+C-c C-x C-i  == org-clock-in 
+C-c C-x C-o   == org-clock-out 
 
 
 * Bookmarks 
@@ -13,5 +20,10 @@ http://www.vm.ibm.com/history/
 http://www.snee.com/bob/opsys.html
 http://www.linux-kvm.org/page/Main_Page
 http://xenproject.org/
+
+** Special Shit!!!!
+http://www.makelinux.net/alp/098
+http://en.wikibooks.org/wiki/C_Programming/POSIX_Reference/unistd.h/write
+
 
 
